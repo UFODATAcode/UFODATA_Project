@@ -10,6 +10,8 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "jsor/doctrine-postgis": "^2.1",
+        "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "^2",
