@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Observation;
+use App\ValueObject\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,5 +38,19 @@ class ObservationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return Observation[]
+     */
+    public function findAllForList(Pagination $pagination): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        return $qb
+            ->setMaxResults($pagination->limit)
+            ->setFirstResult($pagination->page - 1)
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -19,12 +19,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    public function __construct(
-        #[ORM\Column(type: 'string', length: 180, unique: true)]
-        private string $email,
-        #[ORM\Column(type: 'string')]
-        private string $password
-    ) {}
+    #[ORM\Column(type: 'string')]
+    private string $password;
+
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private string $email;
+
+    #[ORM\Column(type: 'string', length: 36)]
+    private readonly string $uuid;
+
+    public function __construct(string $email, string $uuid)
+    {
+        $this->email = $email;
+        $this->uuid = $uuid;
+    }
 
     public function getId(): ?int
     {
@@ -83,6 +91,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 
     /**

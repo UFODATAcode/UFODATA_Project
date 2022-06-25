@@ -1,0 +1,12 @@
+services:
+  app:
+    ports:
+      - 88:80
+
+  db:
+    ports:
+      - 5434:5432
+
+  db-test:
+    ports:
+      - 5435:5432

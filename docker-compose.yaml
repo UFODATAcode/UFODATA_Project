@@ -1,0 +1,50 @@
+version: '3'
+
+x-db: &db-base
+  image: postgres:14-alpine
+  restart: always
+
+x-app: &app-base
+  build:
+    context: .
+    dockerfile: ./docker/app/Dockerfile
+  volumes:
+    - ./:/var/www/html/
+
+services:
+  app:
+    <<: *app-base
+    container_name: ufodata.app
+    env_file:
+      - .env.local
+    environment:
+      - APP_ENV=dev
+    depends_on:
+      - db
+
+  app-test:
+    <<: *app-base
+    container_name: ufodata.app-test
+    env_file:
+      - .env.test
+    environment:
+      - APP_ENV=test
+    depends_on:
+      - db-test
+
+  db:
+    <<: *db-base
+    container_name: ufodata.db
+    env_file:
+      - ./.env.local
+    volumes:
+      - ufodata-db:/var/lib/postgresql/data
+
+  db-test:
+    <<: *db-base
+    container_name: ufodata.db-test
+    env_file:
+      - ./.env.test
+
+volumes:
+  ufodata-db: ~

@@ -15,22 +15,39 @@ class Observation
     #[ORM\Column(type: 'integer')]
     private readonly ?int $id;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private readonly User $provider;
+
+    #[ORM\Column(type: 'string', length: 36)]
+    private readonly string $uuid;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $name;
+
     #[Gedmo\Timestampable(on: 'create')]
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetimetz_immutable')]
     private readonly DateTimeImmutable $providedAt;
 
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: User::class)]
-        #[ORM\JoinColumn(nullable: false)]
-        private readonly User $provider,
-
-        #[ORM\Column(type: 'string', length: 255)]
-        private string $name,
-    ) {}
+        User $provider,
+        string $uuid,
+        string $name
+    ) {
+        $this->provider = $provider;
+        $this->uuid = $uuid;
+        $this->name = $name;
+        $this->providedAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 
     public function getProvider(): User
