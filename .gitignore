@@ -19,4 +19,8 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-docker-compose.override.yaml
+/docker-compose.override.yaml
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

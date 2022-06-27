@@ -3,6 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Contract\CommandInterface;
+use App\Exception\CommandValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -29,14 +30,14 @@ class CommandValueResolver implements ArgumentValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        //check content-type
-
+        #TODO: check content-type
         $command = $this->serializer->deserialize($request->getContent(), $argument->getType(), $request->getContentType());
 
         $violations = $this->validator->validate($command);
 
         if ($violations->count() > 0) {
-            throw new \InvalidArgumentException((string) $violations);
+            # TODO: prepare unified error message template
+            throw new CommandValidationException((string) $violations);
         }
 
         yield $command;

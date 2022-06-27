@@ -3,17 +3,24 @@
 namespace App\Tests\Api;
 
 use App\DataFixtures\ObservationFixtures;
-use App\Entity\User;
 use App\ValueObject\Pagination;
 use App\Tests\ApiTester;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetObservationsCest
 {
-    public function getObservationsWhenLoggedIn(ApiTester $I): void
+    public function canNotGetObservationsWhenNotAuthorized(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
-        $I->amLoggedInAs($I->grabEntityFromRepository(User::class, ['email' => 'test@test.com']));
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGet('/observations');
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function getObservationsWhenAuthorized(ApiTester $I): void
+    {
+        $I->loadFixtures(ObservationFixtures::class);
+        $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGet('/observations');
         $I->seeResponseCodeIs(Response::HTTP_OK);

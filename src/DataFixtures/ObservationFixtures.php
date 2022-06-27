@@ -6,6 +6,7 @@ use App\Entity\Observation;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
 
 class ObservationFixtures extends Fixture
 {
@@ -18,19 +19,19 @@ class ObservationFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $user1 = new User(self::USER_1_EMAIL, self::USER_1_UUID);
+        $user1 = new User(self::USER_1_EMAIL, Uuid::fromString(self::USER_1_UUID));
         $user1->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
         $manager->persist($user1);
 
         $manager->persist(new Observation(
             $user1,
-            self::OBSERVATION_1_UUID,
+            Uuid::fromString(self::OBSERVATION_1_UUID),
             self::OBSERVATION_1_NAME
         ));
 
         $manager->persist(new Observation(
             $user1,
-            self::OBSERVATION_2_UUID,
+            Uuid::fromString(self::OBSERVATION_2_UUID),
             self::OBSERVATION_2_NAME
         ));
 

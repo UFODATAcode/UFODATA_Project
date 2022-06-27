@@ -11,6 +11,8 @@ RUN apt-get update \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-enable pdo_pgsql
 
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/ufodata.conf
 COPY . /var/www/html/
 
 WORKDIR /var/www/html/

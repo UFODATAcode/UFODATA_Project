@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace App\Tests;
 
+use App\Entity\User;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -22,7 +24,10 @@ class ApiTester extends \Codeception\Actor
 {
     use _generated\ApiTesterActions;
 
-    /**
-     * Define custom actions here
-     */
+    public function setBearerTokenForUser(string $userEmail): void
+    {
+        $this->amBearerAuthenticated($this->grabService('lexik_jwt_authentication.jwt_manager')->create(
+            $this->grabEntityFromRepository(User::class, ['email' => $userEmail])
+        ));
+    }
 }

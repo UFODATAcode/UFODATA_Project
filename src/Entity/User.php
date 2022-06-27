@@ -4,18 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
-
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
@@ -25,18 +21,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
-    #[ORM\Column(type: 'string', length: 36)]
-    private readonly string $uuid;
-
-    public function __construct(string $email, string $uuid)
+    public function __construct(string $email, UuidInterface $uuid)
     {
         $this->email = $email;
         $this->uuid = $uuid;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): string
@@ -91,11 +79,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
     }
 
     /**
