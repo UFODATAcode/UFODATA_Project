@@ -41,6 +41,7 @@ class IsUuidUniqueValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ givenUuid }}', $value)
+                ->setCode($constraint->code)
                 ->addViolation();
         }
     }

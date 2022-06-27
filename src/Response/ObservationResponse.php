@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class Observation implements \JsonSerializable
+class ObservationResponse implements \JsonSerializable
 {
     public function __construct(
         private readonly string $uuid,

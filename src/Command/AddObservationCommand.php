@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class AddObservationCommand implements CommandInterface
 {
-    #[Assert\NotNull]
     #[Assert\NotBlank]
     #[Assert\Uuid]
     #[IsUuidUnique(entityClassName: Observation::class)]

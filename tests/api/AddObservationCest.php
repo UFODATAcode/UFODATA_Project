@@ -12,29 +12,26 @@ class AddObservationCest
     public function canNotAddObservationWhenNotAuthorized(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        try {
-            $I->sendPost('/observations', [
-                'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
-                'name' => 'UAP at my place',
-            ]);
-        } catch (\Throwable $e) {}
+        $I->sendPost('/observations', [
+            'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
+            'name' => 'UAP at my place',
+        ]);
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 
     public function canAddObservationWhenAuthorized(ApiTester $I): void
     {
+        $newObservationData = [
+            'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
+            'name' => 'UAP at my place',
+        ];
         $I->loadFixtures(ObservationFixtures::class);
+        $I->dontSeeInRepository(Observation::class, $newObservationData);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('/observations', [
-            'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
-            'name' => 'UAP at my place',
-        ]);
+        $I->sendPost('/observations', $newObservationData);
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
-        $I->seeInRepository(Observation::class, [
-            'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
-            'name' => 'UAP at my place',
-        ]);
+        $I->seeInRepository(Observation::class, $newObservationData);
     }
 
     public function getErrorWhenTryToCreateObservationWithExistingUuidProvided(ApiTester $I): void
@@ -47,7 +44,15 @@ class AddObservationCest
             'name' => 'UAP at my place 1',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('A resource with "' . ObservationFixtures::OBSERVATION_1_UUID . '" UUID already exists.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'uuid',
+                    'message' => 'A resource with "' . ObservationFixtures::OBSERVATION_1_UUID . '" UUID already exists.',
+                    'code' => '74ae47e1-6d43-4dfc-831e-7db274ff494b',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithInvalidUuidProvided(ApiTester $I): void
@@ -60,7 +65,15 @@ class AddObservationCest
             'name' => 'Lorem ipsum',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This is not a valid UUID.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'uuid',
+                    'message' => 'This is not a valid UUID.',
+                    'code' => '51120b12-a2bc-41bf-aa53-cd73daf330d0',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithoutUuidProvided(ApiTester $I): void
@@ -72,7 +85,15 @@ class AddObservationCest
             'name' => 'Lorem ipsum',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value should not be null.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'uuid',
+                    'message' => 'This value should not be blank.',
+                    'code' => 'c1051bb4-d103-4f74-8988-acbcafc7fdc3',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithEmptyUuidProvided(ApiTester $I): void
@@ -85,7 +106,15 @@ class AddObservationCest
             'name' => 'Lorem ipsum',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value should not be blank.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'uuid',
+                    'message' => 'This value should not be blank.',
+                    'code' => 'c1051bb4-d103-4f74-8988-acbcafc7fdc3',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithoutNameProvided(ApiTester $I): void
@@ -97,7 +126,15 @@ class AddObservationCest
             'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value should not be null.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'name',
+                    'message' => 'This value should not be null.',
+                    'code' => 'ad32d13f-c3d4-423b-909a-857b961eb720',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithEmptyNameProvided(ApiTester $I): void
@@ -110,7 +147,15 @@ class AddObservationCest
             'name' => '',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value is too short. It should have 1 character or more.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'name',
+                    'message' => 'This value is too short. It should have 1 character or more.',
+                    'code' => '9ff3fdc4-b214-49db-8718-39c315e33d45',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithTooLongNameProvided(ApiTester $I): void
@@ -123,7 +168,15 @@ class AddObservationCest
             'name' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam commodo orci ut dapibus luctus. Proin congue dolor quis feugiat auctor.',
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value is too long. It should have 64 characters or less.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'name',
+                    'message' => 'This value is too long. It should have 64 characters or less.',
+                    'code' => 'd94b19cc-114f-4f44-9cc4-4138e80a87b9',
+                ]
+            ]
+        ]);
     }
 
     public function getErrorWhenTryToCreateObservationWithInvalidNameTypeValueProvided(ApiTester $I): void
@@ -136,6 +189,14 @@ class AddObservationCest
             'name' => 44,
         ]);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
-        $I->seeResponseContains('This value should be of type string.');
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'name',
+                    'message' => 'This value should be of type string.',
+                    'code' => 'ba785a8c-82cb-4283-967c-3cf342181b40',
+                ]
+            ]
+        ]);
     }
 }

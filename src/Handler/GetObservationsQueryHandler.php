@@ -7,7 +7,7 @@ use App\Query\GetObservationsQuery;
 use App\ValueObject\Pagination;
 use App\Repository\ObservationRepository;
 use App\Response\GetObservationsResponse;
-use App\Response\Observation as ResponseModel;
+use App\Response\ObservationResponse as ResponseModel;
 
 class GetObservationsQueryHandler
 {
