@@ -2,7 +2,7 @@
 
 namespace App\ValueObject;
 
-class ValidationError implements \JsonSerializable
+class Error implements \JsonSerializable
 {
     public function __construct(
         private readonly string $property,

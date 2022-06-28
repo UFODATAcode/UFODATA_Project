@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Entity\Observation;
 use App\ValueObject\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<Observation>
@@ -52,5 +54,19 @@ class ObservationRepository extends ServiceEntityRepository
             ->setFirstResult($pagination->page - 1)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOneByUuid(UuidInterface $uuid): ?Observation
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        return $qb
+            ->where($qb->expr()->eq('o.uuid', ':uuid'))
+            ->setParameter('uuid', $uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

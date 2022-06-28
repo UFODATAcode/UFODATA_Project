@@ -4,14 +4,14 @@ namespace App\Command;
 
 use App\Contract\CommandInterface;
 use App\Entity\Observation;
-use App\Validator\IsUuidUnique;
+use App\Validator\ResourceNotExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AddObservationCommand implements CommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]
-    #[IsUuidUnique(entityClassName: Observation::class)]
+    #[ResourceNotExists(entityClassName: Observation::class)]
     public $uuid;
 
     #[Assert\NotNull]

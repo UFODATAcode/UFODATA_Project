@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AddObservationCest
 {
-    public function canNotAddObservationWhenNotAuthorized(ApiTester $I): void
+    public function iCanNotAddObservationWhenIAmNotAuthorized(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('/observations', [
@@ -19,7 +19,7 @@ class AddObservationCest
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function canAddObservationWhenAuthorized(ApiTester $I): void
+    public function iCanAddObservationWhenIAmAuthorized(ApiTester $I): void
     {
         $newObservationData = [
             'uuid' => '9ef30757-8f8e-4473-b326-b2ee487aefee',
@@ -34,7 +34,7 @@ class AddObservationCest
         $I->seeInRepository(Observation::class, $newObservationData);
     }
 
-    public function getErrorWhenTryToCreateObservationWithExistingUuidProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithAlreadyExistingUuid(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -55,7 +55,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithInvalidUuidProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithInvalidUuid(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -76,7 +76,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithoutUuidProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithoutUuid(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -96,7 +96,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithEmptyUuidProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithEmptyUuid(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -117,7 +117,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithoutNameProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithoutName(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -137,7 +137,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithEmptyNameProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithEmptyName(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -158,7 +158,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithTooLongNameProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithTooLongName(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
@@ -179,7 +179,7 @@ class AddObservationCest
         ]);
     }
 
-    public function getErrorWhenTryToCreateObservationWithInvalidNameTypeValueProvided(ApiTester $I): void
+    public function iGetAnErrorWhenITryToCreateObservationWithInvalidNameTypeValue(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);

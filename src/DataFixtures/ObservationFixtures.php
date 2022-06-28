@@ -10,18 +10,32 @@ use Ramsey\Uuid\Uuid;
 
 class ObservationFixtures extends Fixture
 {
+    public const ADMIN_1_EMAIL = 'admin-1@system.com';
+    public const ADMIN_1_UUID = 'ab027fd7-e2ca-4de6-a2e5-b47bb9128b86';
     public const USER_1_EMAIL = 'test@test.com';
     public const USER_1_UUID = 'e9eae405-e6e3-46a6-a232-b3b3c57539dc';
+    public const USER_2_EMAIL = 'lorem@ipsum.com';
+    public const USER_2_UUID = '65896a81-5330-4c87-88db-4aa6d0a97d29';
     public const OBSERVATION_1_UUID = 'ca45b3e2-8b66-42e2-9953-0eb0191108c1';
     public const OBSERVATION_1_NAME = 'Observation 1';
     public const OBSERVATION_2_UUID = '14dd2de1-8cb7-4439-a9bd-beba8e884b8e';
     public const OBSERVATION_2_NAME = 'Observation 2';
+    public const NOT_EXISTING_OBSERVATION_UUID = 'ab1db128-e844-4dbd-9988-e0758f26a5af';
 
     public function load(ObjectManager $manager): void
     {
+        $admin1 = new User(self::ADMIN_1_EMAIL, Uuid::fromString(self::ADMIN_1_UUID));
+        $admin1->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
+        $admin1->setRoles(['ROLE_ADMIN']);
+        $manager->persist($admin1);
+
         $user1 = new User(self::USER_1_EMAIL, Uuid::fromString(self::USER_1_UUID));
         $user1->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
         $manager->persist($user1);
+
+        $user2 = new User(self::USER_2_EMAIL, Uuid::fromString(self::USER_2_UUID));
+        $user2->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
+        $manager->persist($user2);
 
         $manager->persist(new Observation(
             $user1,

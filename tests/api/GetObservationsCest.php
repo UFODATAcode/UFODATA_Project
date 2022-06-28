@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GetObservationsCest
 {
-    public function canNotGetObservationsWhenNotAuthorized(ApiTester $I): void
+    public function iCanNotGetObservationsWhenIAmNotNotAuthorized(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -17,7 +17,7 @@ class GetObservationsCest
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function getObservationsWhenAuthorized(ApiTester $I): void
+    public function iCanGetObservationsWhenIAmAuthorized(ApiTester $I): void
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);

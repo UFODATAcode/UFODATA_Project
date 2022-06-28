@@ -4,6 +4,7 @@ namespace App\ArgumentResolver;
 
 use App\Contract\CommandInterface;
 use App\Exception\ValidationException;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -33,11 +34,17 @@ class CommandValueResolver implements ArgumentValueResolverInterface
         #TODO: check content-type
         $command = $this->serializer->deserialize($request->getContent(), $argument->getType(), $request->getContentType());
 
+        if (null !== ($uuid = $request->get('uuid'))) {
+            $command->uuid = $uuid;
+        }
+
         $violations = $this->validator->validate($command);
 
         if ($violations->count() > 0) {
             throw new ValidationException($violations);
         }
+
+        $command->uuid = Uuid::fromString($command->uuid);
 
         yield $command;
     }

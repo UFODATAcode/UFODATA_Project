@@ -6,7 +6,6 @@ use App\Command\AddObservationCommand;
 use App\Entity\Observation;
 use App\Entity\User;
 use App\Repository\ObservationRepository;
-use Ramsey\Uuid\Uuid;
 
 class AddObservationCommandHandler
 {
@@ -19,8 +18,8 @@ class AddObservationCommandHandler
         $this->observationRepository->add(
             new Observation(
                 $user,
-                Uuid::fromString($command->uuid),
-                $command->name
+                $command->uuid,
+                $command->name,
             ),
             true
         );

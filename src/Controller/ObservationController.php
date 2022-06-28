@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Command\AddObservationCommand;
+use App\Command\DeleteObservationCommand;
 use App\Entity\User;
 use App\Handler\AddObservationCommandHandler;
+use App\Handler\DeleteObservationCommandHandler;
 use App\Handler\GetObservationsQueryHandler;
 use App\Query\GetObservationsQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,7 @@ class ObservationController extends AbstractController
 {
     public function __construct(
         private readonly AddObservationCommandHandler $addObservationCommandHandler,
+        private readonly DeleteObservationCommandHandler $deleteObservationCommandHandler,
         private readonly GetObservationsQueryHandler $getObservationsQueryHandler,
     ) {}
 
@@ -26,6 +29,13 @@ class ObservationController extends AbstractController
     public function addObservation(AddObservationCommand $command, #[CurrentUser] User $user): Response
     {
         $this->addObservationCommandHandler->__invoke($command, $user);
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route(path: '/{uuid}', name: 'delete_observation', methods: Request::METHOD_DELETE)]
+    public function deleteObservation(DeleteObservationCommand $command, #[CurrentUser] User $user): Response
+    {
+        $this->deleteObservationCommandHandler->__invoke($command, $user);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 

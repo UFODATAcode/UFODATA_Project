@@ -2,6 +2,8 @@
 
 namespace App\EventListener;
 
+use App\Exception\ActionDeniedException;
+use App\Exception\UserIsNotResourceOwnerException;
 use App\Exception\ValidationException;
 use App\Factory\ErrorResponseFactory;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +21,12 @@ class ExceptionListener
         $response = match (\get_class($exception)) {
             ValidationException::class => new Response(
                 # TODO: use serializer and take expected response format from header
-                \json_encode($this->errorResponseFactory->build($exception->getViolations())),
-                Response::HTTP_BAD_REQUEST
+                \json_encode($this->errorResponseFactory->buildFromViolationList($exception->getViolations())),
+                Response::HTTP_BAD_REQUEST,
+            ),
+            ActionDeniedException::class, UserIsNotResourceOwnerException::class => new Response(
+                \json_encode($this->errorResponseFactory->buildFromActionDeniedException($exception)),
+                Response::HTTP_FORBIDDEN,
             ),
             default => null,
         };

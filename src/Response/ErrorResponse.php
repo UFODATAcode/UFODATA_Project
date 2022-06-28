@@ -2,16 +2,16 @@
 
 namespace App\Response;
 
-use App\ValueObject\ValidationError;
+use App\ValueObject\Error;
 
 class ErrorResponse implements \JsonSerializable
 {
     /**
-     * @var ValidationError[]
+     * @var Error[]
      */
     private array $errors = [];
 
-    public function addError(ValidationError $error): void
+    public function addError(Error $error): void
     {
         $this->errors[] = $error;
     }

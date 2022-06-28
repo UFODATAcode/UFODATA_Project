@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 #[\Attribute]
-class IsUuidUnique extends Constraint
+class ResourceNotExists extends Constraint
 {
     public string $message = 'A resource with "{{ givenUuid }}" UUID already exists.';
     public string $entityClassName;

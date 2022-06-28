@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use UnexpectedValueException;
 
-class IsUuidUniqueValidator extends ConstraintValidator
+class ResourceExistsValidator extends ConstraintValidator
 {
     public function __construct(
         private readonly EntityManagerInterface $manager
@@ -19,8 +19,8 @@ class IsUuidUniqueValidator extends ConstraintValidator
     {
         # TODO: add unit test
 
-        if (!$constraint instanceof IsUuidUnique) {
-            throw new UnexpectedTypeException($constraint, IsUuidUnique::class);
+        if (!$constraint instanceof ResourceExists) {
+            throw new UnexpectedTypeException($constraint, ResourceExists::class);
         }
 
         if (null === $value || '' === $value) {
@@ -37,7 +37,7 @@ class IsUuidUniqueValidator extends ConstraintValidator
 
         $result = $this->manager->getRepository($constraint->entityClassName)->findOneBy(['uuid' => $value]);
 
-        if (null !== $result) {
+        if (null === $result) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ givenUuid }}', $value)
