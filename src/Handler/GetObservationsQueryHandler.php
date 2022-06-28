@@ -2,17 +2,17 @@
 
 namespace App\Handler;
 
+use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
 use App\Query\GetObservationsQuery;
 use App\ValueObject\Pagination;
-use App\Repository\ObservationRepository;
 use App\Response\GetObservationsResponse;
 use App\Response\ObservationResponse as ResponseModel;
 
 class GetObservationsQueryHandler
 {
     public function __construct(
-        private readonly ObservationRepository $observationRepository
+        private readonly ObservationRepositoryInterface $observationRepository
     ) {}
 
     public function __invoke(GetObservationsQuery $query): GetObservationsResponse

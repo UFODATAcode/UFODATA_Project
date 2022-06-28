@@ -3,15 +3,15 @@
 namespace App\Handler;
 
 use App\Command\UpdateObservationCommand;
+use App\Contract\ObservationRepositoryInterface;
 use App\Entity\User;
 use App\Exception\UserIsNotResourceOwnerException;
-use App\Repository\ObservationRepository;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UpdateObservationCommandHandler
 {
     public function __construct(
-        private readonly ObservationRepository $observationRepository,
+        private readonly ObservationRepositoryInterface $observationRepository,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {}
 

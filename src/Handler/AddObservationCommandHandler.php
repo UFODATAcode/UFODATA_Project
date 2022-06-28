@@ -3,14 +3,14 @@
 namespace App\Handler;
 
 use App\Command\AddObservationCommand;
+use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
 use App\Entity\User;
-use App\Repository\ObservationRepository;
 
 class AddObservationCommandHandler
 {
     public function __construct(
-        private readonly ObservationRepository $observationRepository
+        private readonly ObservationRepositoryInterface $observationRepository
     ) {}
 
     public function __invoke(AddObservationCommand $command, User $user): void

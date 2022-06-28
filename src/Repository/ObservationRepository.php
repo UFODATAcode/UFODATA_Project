@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
 use App\ValueObject\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -17,7 +18,7 @@ use Ramsey\Uuid\UuidInterface;
  * @method Observation[]    findAll()
  * @method Observation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ObservationRepository extends ServiceEntityRepository
+class ObservationRepository extends ServiceEntityRepository implements ObservationRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
