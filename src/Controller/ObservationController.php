@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Command\AddObservationCommand;
 use App\Command\DeleteObservationCommand;
+use App\Command\UpdateObservationCommand;
 use App\Entity\User;
 use App\Handler\AddObservationCommandHandler;
 use App\Handler\DeleteObservationCommandHandler;
 use App\Handler\GetObservationsQueryHandler;
+use App\Handler\UpdateObservationCommandHandler;
 use App\Query\GetObservationsQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +25,7 @@ class ObservationController extends AbstractController
         private readonly AddObservationCommandHandler $addObservationCommandHandler,
         private readonly DeleteObservationCommandHandler $deleteObservationCommandHandler,
         private readonly GetObservationsQueryHandler $getObservationsQueryHandler,
+        private readonly UpdateObservationCommandHandler $updateObservationCommandHandler,
     ) {}
 
     #[Route(name: 'add_observation', methods: Request::METHOD_POST)]
@@ -36,6 +39,13 @@ class ObservationController extends AbstractController
     public function deleteObservation(DeleteObservationCommand $command, #[CurrentUser] User $user): Response
     {
         $this->deleteObservationCommandHandler->__invoke($command, $user);
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route(path: '/{uuid}', name: 'update_observation', methods: Request::METHOD_PATCH)]
+    public function updateObservation(UpdateObservationCommand $command, #[CurrentUser] User $user): Response
+    {
+        $this->updateObservationCommandHandler->__invoke($command, $user);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 

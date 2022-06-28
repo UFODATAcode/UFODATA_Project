@@ -69,4 +69,9 @@ class ObservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function update(): void
+    {
+        $this->getEntityManager()->flush();
+    }
 }

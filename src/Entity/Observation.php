@@ -11,11 +11,13 @@ use Ramsey\Uuid\UuidInterface;
 #[ORM\Entity(repositoryClass: ObservationRepository::class)]
 class Observation extends AbstractEntity
 {
+    public const NAME_MAX_LENGTH = 64;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private readonly User $provider;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: self::NAME_MAX_LENGTH)]
     private string $name;
 
     #[Gedmo\Timestampable(on: 'create')]
