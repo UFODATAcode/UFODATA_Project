@@ -6,7 +6,7 @@ use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
 use App\Query\GetObservationsQuery;
 use App\ValueObject\Pagination;
-use App\Response\GetObservationsResponse;
+use App\Response\GetResourcesResponse;
 use App\Response\ObservationResponse as ResponseModel;
 
 class GetObservationsQueryHandler
@@ -15,7 +15,7 @@ class GetObservationsQueryHandler
         private readonly ObservationRepositoryInterface $observationRepository
     ) {}
 
-    public function __invoke(GetObservationsQuery $query): GetObservationsResponse
+    public function __invoke(GetObservationsQuery $query): GetResourcesResponse
     {
         $pagination = $query->pagination ?? new Pagination();
         $observations = \array_map(
@@ -23,6 +23,6 @@ class GetObservationsQueryHandler
             $this->observationRepository->findAllForList($pagination)
         );
 
-        return new GetObservationsResponse($observations, $pagination);
+        return new GetResourcesResponse($observations, $pagination);
     }
 }

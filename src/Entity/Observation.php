@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Contract\ResourceInterface;
 use App\Repository\ObservationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: ObservationRepository::class)]
-class Observation extends AbstractEntity
+class Observation extends AbstractEntity implements ResourceInterface
 {
     public const NAME_MAX_LENGTH = 64;
 

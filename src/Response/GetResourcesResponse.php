@@ -3,19 +3,20 @@
 namespace App\Response;
 
 use App\ValueObject\Pagination;
+use JsonSerializable;
 
-class GetObservationsResponse implements \JsonSerializable
+class GetResourcesResponse implements JsonSerializable
 {
     public function __construct(
-        private readonly array $observations,
+        /** @var JsonSerializable[] $resources */
+        private readonly array $resources,
         private readonly Pagination $pagination
     ) {}
-
 
     public function jsonSerialize(): array
     {
         return [
-            'data' => $this->observations,
+            'data' => $this->resources,
             'pagination' => $this->pagination,
         ];
     }

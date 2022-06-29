@@ -20,6 +20,10 @@ class ObservationFixtures extends Fixture
     public const OBSERVATION_1_NAME = 'Observation 1';
     public const OBSERVATION_2_UUID = '14dd2de1-8cb7-4439-a9bd-beba8e884b8e';
     public const OBSERVATION_2_NAME = 'Observation 2';
+    public const OBSERVATION_3_UUID = 'e70b793a-d5f8-402c-8979-d181adbf3f9e';
+    public const OBSERVATION_3_NAME = 'Observation 3';
+    public const OBSERVATION_4_UUID = '7037eb32-4677-4e82-b4e2-9cb7b2d2f4fa';
+    public const OBSERVATION_4_NAME = 'Observation 4';
     public const NOT_EXISTING_OBSERVATION_UUID = 'ab1db128-e844-4dbd-9988-e0758f26a5af';
 
     public function load(ObjectManager $manager): void
@@ -47,6 +51,18 @@ class ObservationFixtures extends Fixture
             $user1,
             Uuid::fromString(self::OBSERVATION_2_UUID),
             self::OBSERVATION_2_NAME
+        ));
+
+        $manager->persist(new Observation(
+            $user2,
+            Uuid::fromString(self::OBSERVATION_3_UUID),
+            self::OBSERVATION_3_NAME
+        ));
+
+        $manager->persist(new Observation(
+            $user2,
+            Uuid::fromString(self::OBSERVATION_4_UUID),
+            self::OBSERVATION_4_NAME
         ));
 
         $manager->flush();

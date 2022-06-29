@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Contract\ResourceInterface;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -10,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface, ResourceInterface
 {
     #[ORM\Column(type: 'json')]
     private array $roles = [];
