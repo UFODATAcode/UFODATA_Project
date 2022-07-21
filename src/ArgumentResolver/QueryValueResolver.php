@@ -42,10 +42,6 @@ class QueryValueResolver implements ArgumentValueResolverInterface
             throw new ValidationException($violations);
         }
 
-        if (null !== $uuid) {
-            $query->uuid = Uuid::fromString($query->uuid);
-        }
-
         yield $query;
     }
 }

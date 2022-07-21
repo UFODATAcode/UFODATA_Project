@@ -12,10 +12,12 @@ class ObservationFixtures extends Fixture
 {
     public const ADMIN_1_EMAIL = 'admin-1@system.com';
     public const ADMIN_1_UUID = 'ab027fd7-e2ca-4de6-a2e5-b47bb9128b86';
+
     public const USER_1_EMAIL = 'test@test.com';
     public const USER_1_UUID = 'e9eae405-e6e3-46a6-a232-b3b3c57539dc';
     public const USER_2_EMAIL = 'lorem@ipsum.com';
     public const USER_2_UUID = '65896a81-5330-4c87-88db-4aa6d0a97d29';
+
     public const OBSERVATION_1_UUID = 'ca45b3e2-8b66-42e2-9953-0eb0191108c1';
     public const OBSERVATION_1_NAME = 'Observation 1';
     public const OBSERVATION_2_UUID = '14dd2de1-8cb7-4439-a9bd-beba8e884b8e';
@@ -24,6 +26,7 @@ class ObservationFixtures extends Fixture
     public const OBSERVATION_3_NAME = 'Observation 3';
     public const OBSERVATION_4_UUID = '7037eb32-4677-4e82-b4e2-9cb7b2d2f4fa';
     public const OBSERVATION_4_NAME = 'Observation 4';
+
     public const NOT_EXISTING_OBSERVATION_UUID = 'ab1db128-e844-4dbd-9988-e0758f26a5af';
 
     public function load(ObjectManager $manager): void

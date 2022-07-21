@@ -7,7 +7,7 @@ use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
 use App\Entity\User;
 
-class AddObservationCommandHandler
+class AddObservationHandler
 {
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository

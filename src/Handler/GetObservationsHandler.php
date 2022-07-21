@@ -9,7 +9,7 @@ use App\ValueObject\Pagination;
 use App\Response\GetResourcesResponse;
 use App\Response\ObservationResponse as ResponseModel;
 
-class GetObservationsQueryHandler
+class GetObservationsHandler
 {
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository

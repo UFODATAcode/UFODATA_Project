@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Entity;
 
 use App\Contract\PaginationInterface;
 use App\Contract\ResourceInterface;

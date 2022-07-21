@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Contract\ResourceInterface;
-use App\Repository\ObservationRepository;
+use App\Repository\Entity\ObservationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -30,8 +30,9 @@ class Observation extends AbstractEntity implements ResourceInterface
         UuidInterface $uuid,
         string $name
     ) {
+        parent::__construct($uuid);
+
         $this->provider = $provider;
-        $this->uuid = $uuid;
         $this->name = $name;
         $this->providedAt = new DateTimeImmutable();
     }

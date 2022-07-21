@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Contract\ResourceInterface;
-use App\Repository\UserRepository;
+use App\Repository\Entity\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -24,8 +24,9 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     public function __construct(string $email, UuidInterface $uuid)
     {
+        parent::__construct($uuid);
+
         $this->email = $email;
-        $this->uuid = $uuid;
     }
 
     public function getEmail(): string

@@ -17,21 +17,24 @@
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
-        "symfony/dotenv": "*",
+        "symfony/dotenv": "6.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "*",
+        "symfony/mime": "6.1.*",
         "symfony/proxy-manager-bridge": "6.1.*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "6.1.*",
         "symfony/serializer": "6.1.*",
         "symfony/validator": "6.1.*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "vich/uploader-bundle": "^1.20"
     },
     "require-dev": {
         "codeception/codeception": "5.0.x-dev",
         "codeception/module-asserts": "^3.0",
         "codeception/module-db": "^3.0",
         "codeception/module-doctrine2": "^3.0",
+        "codeception/module-mongodb": "^3.0",
         "codeception/module-phpbrowser": "^3.0",
         "codeception/module-rest": "^3.1",
         "codeception/module-symfony": "^3.1",
@@ -92,7 +95,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "require": "6.1.*"
         }
     }

@@ -3,10 +3,22 @@ services:
     ports:
       - 88:80
 
-  db:
+  sql-db:
     ports:
       - 5434:5432
 
-  db-test:
+  sql-db-test:
     ports:
       - 5435:5432
+
+  no-sql-db:
+    ports:
+      - 27018:27017
+
+  no-sql-db-test:
+    ports:
+      - 27019:27017
+
+  no-sql-viewer:
+    ports:
+      - 8081:8081

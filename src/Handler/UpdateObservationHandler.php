@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Exception\UserIsNotResourceOwnerException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class UpdateObservationCommandHandler
+class UpdateObservationHandler
 {
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository,

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Entity;
 
 use App\Contract\ObservationRepositoryInterface;
 use App\Contract\PaginationInterface;
 use App\Entity\Observation;
+use App\Repository\Entity\AbstractResourceRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;

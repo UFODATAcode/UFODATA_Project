@@ -15,6 +15,11 @@ abstract class AbstractEntity
     #[ORM\Column(type: 'uuid', unique: true)]
     protected UuidInterface $uuid;
 
+    public function __construct(UuidInterface $uuid)
+    {
+        $this->uuid = $uuid;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

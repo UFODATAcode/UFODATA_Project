@@ -1,8 +1,19 @@
 version: '3'
 
-x-db: &db-base
+x-db: &sql-db-base
   image: postgres:14-alpine
   restart: always
+  environment:
+    - POSTGRES_USER=ufodata
+    - POSTGRES_DB=ufodata
+    - POSTGRES_PASSWORD=password
+
+x-no-sql-db-base: &no-sql-db-base
+  image: mongo:4.2.21
+  restart: always
+  environment:
+    - MONGO_INITDB_ROOT_USERNAME=ufodata
+    - MONGO_INITDB_ROOT_PASSWORD=password
 
 x-app: &app-base
   build:
@@ -10,41 +21,69 @@ x-app: &app-base
     dockerfile: ./docker/app/Dockerfile
   volumes:
     - ./:/var/www/html/
+  environment:
+    - APP_SECRET=473e07c3aad5e01e4716fc6860eda710
+    - APP_DEBUG=1
+    - JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
+    - JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
+    - JWT_PASSPHRASE=0df88bf33543f5d6886dc4a538c8b07e
+    - MONGODB_DB=measurements
 
 services:
   app:
     <<: *app-base
     container_name: ufodata.app
-    env_file:
-      - .env.local
     environment:
       - APP_ENV=dev
+      - POSTGRES_HOST=sql-db
+      - MONGODB_HOST=no-sql-db
     depends_on:
-      - db
+      - sql-db
+      - no-sql-db
 
   app-test:
     <<: *app-base
     container_name: ufodata.app-test
-    env_file:
-      - .env.test
     environment:
       - APP_ENV=test
+      - POSTGRES_HOST=sql-db-test
+      - MONGODB_HOST=no-sql-db-test
     depends_on:
-      - db-test
+      - sql-db-test
+      - no-sql-db-test
 
-  db:
-    <<: *db-base
-    container_name: ufodata.db
-    env_file:
-      - ./.env.local
+  sql-db:
+    <<: *sql-db-base
+    container_name: ufodata.sql-db
     volumes:
-      - ufodata-db:/var/lib/postgresql/data
+      - ufodata-sql-db:/var/lib/postgresql/data
 
-  db-test:
-    <<: *db-base
-    container_name: ufodata.db-test
-    env_file:
-      - ./.env.test
+  sql-db-test:
+    <<: *sql-db-base
+    container_name: ufodata.sql-db-test
+
+  no-sql-db:
+    <<: *no-sql-db-base
+    container_name: ufodata.no-sql-db
+    volumes:
+      - ufodata-no-sql-db:/data/db
+
+  no-sql-db-test:
+    <<: *no-sql-db-base
+    container_name: ufodata.no-sql-db-test
+
+  no-sql-viewer:
+    image: mongo-express:0.54.0
+    container_name: ufodata.no-sql-viewer
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=ufodata
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=no-sql-db-test
+    depends_on:
+      - no-sql-db-test
 
 volumes:
-  ufodata-db: ~
+  ufodata-sql-db: ~
+  ufodata-no-sql-db: ~
