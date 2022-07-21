@@ -1,4 +1,6 @@
 vich_uploader:
+    twig: false
+    form: false
     db_driver: orm
     metadata:
         type: attribute
@@ -8,3 +10,4 @@ vich_uploader:
             uri_prefix: /measurements
             upload_destination: '%kernel.project_dir%/public/measurements'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true

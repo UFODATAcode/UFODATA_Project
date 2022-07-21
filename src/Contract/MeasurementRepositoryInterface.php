@@ -2,7 +2,7 @@
 
 namespace App\Contract;
 
-interface MeasurementRepositoryInterface
+interface MeasurementRepositoryInterface extends ResourceRepositoryInterface
 {
 
 }

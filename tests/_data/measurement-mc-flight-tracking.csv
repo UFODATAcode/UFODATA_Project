@@ -1,0 +1,25 @@
+-------------------------------------------------------------------------------------------------
+ADS-B Flight Data -- 6 Aircraft         UFODAP Mission Control        15 February 2022  14:51:10PM
+-------------------------------------------------------------------------------------------------
+Data Item,          Flight 1,    Flight 2,    Flight 3,    Flight 4,    Flight 5,    Flight 6,    
+-------------------,------------,------------,------------,------------,------------,------------,
+ICAO transpdr adds  ,a1e218,a52fb2,a3cd99,a0052d,a11e8b,a29e5f,
+Callsign            ,CYO220  ,EJA433  ,EJA344  ,N100EW  ,SKW3407 ,268TA   ,
+Origin Country      ,United State,United State,United State,United State,United State,United State,
+Last Position Time  ,14:51:09,14:51:10,14:48:59,14:46:51,14:51:06,14:51:10,
+Last Contact Time   ,14:51:10,14:51:10,14:48:59,14:47:15,14:51:06,14:51:10,
+Longitude           ,-118.48,-118.52,-118.49,-118.49,-118.39,-118.63,
+Latitude            ,34.15,34.20,34.18,34.17,34.20,34.15,
+Barometric Alt - m  ,701.04,982.98,419.10,472.44,419.10,1341.12,
+Surface Report      ,False,False,False,False,False,False,
+Velocity - m/s      ,86.17,101.35,65.43,61.36,69.96,109.58,
+True Track - deg    ,338.64,90.29,356.85,356.15,90.00,118.61,
+Vertical Rate - m/s ,-8.45,0.98,-5.20,-3.90,-4.23,-5.20,
+Sensor IDs          ,N/R,N/R,N/R,N/R,N/R,N/R,
+Geometric Alt - m   ,601.98,899.16,373.38,381.00,358.14,1264.92,
+Squawk Code         ,N/R,N/R,N/R,N/R,6363,3752,
+Special Purpose Ind ,False,False,False,False,False,False,
+Position Source     ,ADS-B,ADS-B,ADS-B,ADS-B,ADS-B,ADS-B,
+
+N/R -- Not Reported      Typical data latency is ~10s to 2min      6 of 6 flights shown
+Reporting area is a rectangle, 10 mi/side, centered on the location of DAU1

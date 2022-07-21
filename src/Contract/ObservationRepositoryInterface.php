@@ -2,7 +2,7 @@
 
 namespace App\Contract;
 
-interface ObservationRepositoryInterface
+interface ObservationRepositoryInterface extends ResourceRepositoryInterface
 {
 
 }

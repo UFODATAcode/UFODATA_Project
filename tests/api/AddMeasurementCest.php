@@ -12,8 +12,16 @@ class AddMeasurementCest
 {
     public function iCanAddRadioFrequencyMeasurement(ApiTester $I)
     {
+        $measurementFileName = 'measurement-rfs.csv';
+        $measurementFileCopyName = 'measurement-rfs-copy.csv';
+        $measurementFileCopyPath = codecept_data_dir($measurementFileCopyName);
+
+        copy(
+            codecept_data_dir($measurementFileName),
+            $measurementFileCopyPath
+        );
+
         $I->loadFixtures(MeasurementFixtures::class);
-//        $I->dontSeeInCollection(\App\Document\Measurement\RadioFrequencySpectrum::COLLECTION_NAME, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
         $I->dontSeeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -26,17 +34,16 @@ class AddMeasurementCest
             ],
             [
                 'measurement' => [
-                    'name' => 'measurement-rfs.csv',
+                    'name' => $measurementFileCopyName,
                     'type' => 'text/csv',
                     'error' => UPLOAD_ERR_OK,
-                    'size' => filesize(codecept_data_dir('measurement-rfs.csv')),
-                    'tmp_name' => codecept_data_dir('measurement-rfs.csv'),
+                    'size' => filesize($measurementFileCopyPath),
+                    'tmp_name' => $measurementFileCopyPath,
                 ],
             ]
         );
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
         $I->seeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
         //assert file was saved
-//        $I->seeInCollection(\App\Document\Measurement\RadioFrequencySpectrum::COLLECTION_NAME, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
     }
 }

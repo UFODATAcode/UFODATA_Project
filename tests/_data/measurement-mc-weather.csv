@@ -1,0 +1,28 @@
+----------------------------------------------------------------------------------------------------
+Atmospheric Data per DAU                UFODAP Mission Control          15 February 2022  14:50:56PM
+----------------------------------------------------------------------------------------------------
+Data Item,          DAU1,        DAU2,        DAU3,        DAU4,        DAU5,        DAU6,        
+-------------------,------------,------------,------------,------------,------------,------------,
+City                ,Los Angeles,Los Angeles,N/R,N/R,N/R,N/R,
+State               ,California,California,N/R,N/R,N/R,N/R,
+Time of calculation ,14:50:57,14:50:58,N/R,N/R,N/R,N/R,
+Local Time          ,14:50:56,14:50:56,N/R,N/R,N/R,N/R,
+Sunrise Time        ,06:39:01,06:38:58,N/R,N/R,N/R,N/R,
+Sunset Time         ,17:37:34,17:37:32,N/R,N/R,N/R,N/R,
+Status              ,overcast clo,overcast clo,N/R,N/R,N/R,N/R,
+Wind Speed - m/s    ,8.75,8.75,N/R,N/R,N/R,N/R,
+Wind Speed - mi/hr  ,19.57,19.57,N/R,N/R,N/R,N/R,
+Wind Gust - m/s     ,11.83,11.83,N/R,N/R,N/R,N/R,
+Wind Gust - mi/hr   ,26.46,26.46,N/R,N/R,N/R,N/R,
+Wind Dir - deg      ,350.00,350.00,N/R,N/R,N/R,N/R,
+Humidity - %        ,56.00,56.00,N/R,N/R,N/R,N/R,
+Temperature - C     ,13.40,13.41,N/R,N/R,N/R,N/R,
+Temperature - F     ,56.12,56.14,N/R,N/R,N/R,N/R,
+Pressure - hPa      ,1006.00,1006.00,N/R,N/R,N/R,N/R,
+Pressure - inHg     ,29.71,29.71,N/R,N/R,N/R,N/R,
+Visibility - m      ,10000.00,10000.00,N/R,N/R,N/R,N/R,
+Rain - mm/hr        ,N/R,N/R,N/R,N/R,N/R,N/R,
+Snow - mm/hr        ,N/R,N/R,N/R,N/R,N/R,N/R,
+Clouds - %          ,100.00,100.00,N/R,N/R,N/R,N/R,
+
+N/R -- Not Reported        New data is available every two hours or less

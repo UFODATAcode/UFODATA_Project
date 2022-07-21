@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Contract\CommandInterface;
 use App\Contract\FileUploadInterface;
+use App\Entity\Measurement;
 use App\Entity\Observation;
 use App\Enum\MeasurementType;
 use App\Validator\ResourceExists;
@@ -16,7 +17,7 @@ class AddMeasurementCommand implements CommandInterface, FileUploadInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]
-//    #[ResourceNotExists()]
+    #[ResourceNotExists(entityClassName: Measurement::class)]
     public UuidInterface $uuid;
 
     #[Assert\NotBlank]
@@ -34,6 +35,11 @@ class AddMeasurementCommand implements CommandInterface, FileUploadInterface
     )]
     //TODO: add constraint to validate if this measurement type can be parsed/is valid measurement type
     public UploadedFile $measurement;
+
+    #[Assert\NotBlank(allowNull: true)]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: Measurement::NAME_MAX_LENGTH)]
+    public ?string $name = null;
 
     /**
      * @inheritdoc

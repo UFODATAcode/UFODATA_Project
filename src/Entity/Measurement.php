@@ -15,10 +15,15 @@ use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     'rfs' => RadioFrequencySpectrum::class,
+    'mcdata' => MissionControlData::class,
+    'mcadsb' => MissionControlAdsBFlightTracking::class,
+    'mcwthr' => MissionControlWeather::class,
 ])]
 #[Vich\Uploadable]
 abstract class Measurement extends AbstractEntity implements ResourceInterface
 {
+    public const NAME_MAX_LENGTH = 64;
+
     #[ORM\ManyToOne(targetEntity: Observation::class)]
     #[ORM\JoinColumn(nullable: false)]
     private Observation $observation;
@@ -32,7 +37,7 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     )]
     private File $originalFile;
 
-    #[ORM\Column(type: 'string', length: 64, nullable: true)]
+    #[ORM\Column(type: 'string', length: self::NAME_MAX_LENGTH, nullable: true)]
     private ?string $name;
 
     #[ORM\Embedded(class: EmbeddedFile::class)]
