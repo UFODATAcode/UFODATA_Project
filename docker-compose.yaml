@@ -8,13 +8,6 @@ x-db: &sql-db-base
     - POSTGRES_DB=ufodata
     - POSTGRES_PASSWORD=password
 
-x-no-sql-db-base: &no-sql-db-base
-  image: mongo:4.2.21
-  restart: always
-  environment:
-    - MONGO_INITDB_ROOT_USERNAME=ufodata
-    - MONGO_INITDB_ROOT_PASSWORD=password
-
 x-app: &app-base
   build:
     context: .
@@ -36,10 +29,12 @@ services:
     environment:
       - APP_ENV=dev
       - POSTGRES_HOST=sql-db
-      - MONGODB_HOST=no-sql-db
+      - POSTGRES_USER=ufodata
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=ufodata
+      - POSTGRES_PASSWORD=password
     depends_on:
       - sql-db
-      - no-sql-db
 
   app-test:
     <<: *app-base
@@ -47,10 +42,8 @@ services:
     environment:
       - APP_ENV=test
       - POSTGRES_HOST=sql-db-test
-      - MONGODB_HOST=no-sql-db-test
     depends_on:
       - sql-db-test
-      - no-sql-db-test
 
   sql-db:
     <<: *sql-db-base
@@ -62,28 +55,5 @@ services:
     <<: *sql-db-base
     container_name: ufodata.sql-db-test
 
-  no-sql-db:
-    <<: *no-sql-db-base
-    container_name: ufodata.no-sql-db
-    volumes:
-      - ufodata-no-sql-db:/data/db
-
-  no-sql-db-test:
-    <<: *no-sql-db-base
-    container_name: ufodata.no-sql-db-test
-
-  no-sql-viewer:
-    image: mongo-express:0.54.0
-    container_name: ufodata.no-sql-viewer
-    environment:
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=admin
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=ufodata
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-      - ME_CONFIG_MONGODB_SERVER=no-sql-db-test
-    depends_on:
-      - no-sql-db-test
-
 volumes:
   ufodata-sql-db: ~
-  ufodata-no-sql-db: ~

@@ -10,15 +10,3 @@ services:
   sql-db-test:
     ports:
       - 5435:5432
-
-  no-sql-db:
-    ports:
-        - 27018:27017
-
-  no-sql-db-test:
-    ports:
-        - 27019:27017
-
-  no-sql-viewer:
-    ports:
-      - 8081:8081

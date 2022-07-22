@@ -1,6 +1,9 @@
 FROM composer:2.3 AS composer_img
 FROM php:8.1-apache
 
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
 # Composer
 COPY --from=composer_img /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
@@ -26,9 +29,14 @@ RUN apt-get update \
     && docker-php-ext-enable intl
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/ufodata.conf
+COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./docker/app/entrypoint.sh /entrypoint.sh
 COPY . /var/www/html/
 
 WORKDIR /var/www/html/
 
 RUN composer install
+
+CMD ["apache2-foreground"]
+
+ENTRYPOINT ["/entrypoint.sh"]
