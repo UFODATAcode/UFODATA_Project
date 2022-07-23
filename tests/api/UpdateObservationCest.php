@@ -46,7 +46,7 @@ class UpdateObservationCest
                 'name' => $newNameValue,
             ]
         );
-        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
         $I->seeResponseContainsJson([
             'errors' => [
                 [

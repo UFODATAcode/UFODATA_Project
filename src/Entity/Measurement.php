@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Contract\ResourceInterface;
+use App\Contract\UserInterface;
 use App\Repository\Entity\MeasurementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -28,6 +29,10 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     #[ORM\JoinColumn(nullable: false)]
     private Observation $observation;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private UserInterface $provider;
+
     #[Vich\UploadableField(
         mapping: 'measurement',
         fileNameProperty: 'originalFileMetadata.name',
@@ -52,12 +57,14 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     public function __construct(
         UuidInterface $uuid,
         Observation $observation,
+        UserInterface $provider,
         File $originalFile,
         ?string $name = null
     ) {
         parent::__construct($uuid);
 
         $this->observation = $observation;
+        $this->provider = $provider;
         $this->originalFile = $originalFile;
         $this->name = $name;
         $this->originalFileMetadata = new EmbeddedFile();
@@ -113,5 +120,10 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     public function getOriginalFileMetadata(): ?EmbeddedFile
     {
         return $this->originalFileMetadata;
+    }
+
+    public function getProvider(): UserInterface
+    {
+        return $this->provider;
     }
 }

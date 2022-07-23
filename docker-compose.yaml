@@ -42,6 +42,10 @@ services:
     environment:
       - APP_ENV=test
       - POSTGRES_HOST=sql-db-test
+      - POSTGRES_USER=ufodata
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=ufodata
+      - POSTGRES_PASSWORD=password
     depends_on:
       - sql-db-test
 

@@ -2,9 +2,12 @@
 
 namespace App\Handler;
 
-use App\Command\AddMeasurementCommand;
+use App\Contract\AddMeasurementCommandInterface;
 use App\Contract\MeasurementRepositoryInterface;
 use App\Contract\ObservationRepositoryInterface;
+use App\Entity\MissionControlAdsBFlightTracking;
+use App\Entity\MissionControlData;
+use App\Entity\MissionControlWeather;
 use App\Entity\RadioFrequencySpectrum;
 use App\Enum\MeasurementType;
 
@@ -15,16 +18,22 @@ class AddMeasurementHandler
         private readonly MeasurementRepositoryInterface $measurementRepository,
     ) {}
 
-    public function __invoke(AddMeasurementCommand $command): void
+    public function __invoke(AddMeasurementCommandInterface $command): void
     {
+        $measurementClassName = match ($command->getMeasurementType()) {
+            MeasurementType::RadioFrequencySpectrum => RadioFrequencySpectrum::class,
+            MeasurementType::MissionControlData => MissionControlData::class,
+            MeasurementType::MissionControlAdsBFlightTracking => MissionControlAdsBFlightTracking::class,
+            MeasurementType::MissionControlWeather => MissionControlWeather::class,
+        };
+
         $this->measurementRepository->add(
-            match ($command->measurementType) {
-                MeasurementType::RadioFrequencySpectrum => new RadioFrequencySpectrum(
-                    $command->uuid,
-                    $this->observationRepository->findOneByUuid($command->observationUuid),
-                    $command->measurement,
-                ),
-            },
+            new $measurementClassName(
+                $command->getUuid(),
+                $this->observationRepository->findOneByUuid($command->getObservationUuid()),
+                $command->getProvider(),
+                $command->getMeasurement(),
+            ),
             true
         );
     }

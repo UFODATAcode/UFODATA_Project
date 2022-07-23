@@ -2,25 +2,21 @@
 
 namespace App\Command;
 
-use App\Contract\UpdateObservationCommandInterface;
+use App\Contract\DeleteMeasurementCommandInterface;
 use App\Contract\UserInterface;
-use App\Entity\Observation;
+use App\Entity\Measurement;
 use App\Validator\ActionOnResourceIsGranted;
 use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UpdateObservationCommand implements UpdateObservationCommandInterface
+class DeleteMeasurementCommand implements DeleteMeasurementCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]
-    #[ResourceExists(entityClassName: Observation::class)]
-    #[ActionOnResourceIsGranted(entityClassName: Observation::class)]
+    #[ResourceExists(entityClassName: Measurement::class)]
+    #[ActionOnResourceIsGranted(entityClassName: Measurement::class)]
     public UuidInterface $uuid;
-
-    #[Assert\Length(min: 1, max: Observation::NAME_MAX_LENGTH)]
-    #[Assert\Type('string')]
-    public string $name;
 
     public UserInterface $provider;
 
@@ -32,10 +28,5 @@ class UpdateObservationCommand implements UpdateObservationCommandInterface
     public function getProvider(): UserInterface
     {
         return $this->provider;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 }

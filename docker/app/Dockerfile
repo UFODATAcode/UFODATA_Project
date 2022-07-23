@@ -28,14 +28,12 @@ RUN apt-get update \
     && docker-php-ext-install intl \
     && docker-php-ext-enable intl
 
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN echo "upload_max_filesize=32M" >> "$PHP_INI_DIR/php.ini"
 COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/000-default.conf
 COPY ./docker/app/entrypoint.sh /entrypoint.sh
 COPY . /var/www/html/
 
 WORKDIR /var/www/html/
-
-RUN composer install
 
 CMD ["apache2-foreground"]
 

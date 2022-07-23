@@ -2,8 +2,9 @@
 
 namespace App\Command;
 
-use App\Contract\CommandInterface;
+use App\Contract\AddMeasurementCommandInterface;
 use App\Contract\FileUploadInterface;
+use App\Contract\UserInterface;
 use App\Entity\Measurement;
 use App\Entity\Observation;
 use App\Enum\MeasurementType;
@@ -13,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddMeasurementCommand implements CommandInterface, FileUploadInterface
+class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploadInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]
@@ -41,6 +42,8 @@ class AddMeasurementCommand implements CommandInterface, FileUploadInterface
     #[Assert\Length(max: Measurement::NAME_MAX_LENGTH)]
     public ?string $name = null;
 
+    public UserInterface $provider;
+
     /**
      * @inheritdoc
      */
@@ -49,5 +52,35 @@ class AddMeasurementCommand implements CommandInterface, FileUploadInterface
         return [
             'measurement',
         ];
+    }
+
+    public function getObservationUuid(): UuidInterface
+    {
+        return $this->observationUuid;
+    }
+
+    public function getMeasurementType(): MeasurementType
+    {
+        return $this->measurementType;
+    }
+
+    public function getMeasurement(): UploadedFile
+    {
+        return $this->measurement;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    public function getProvider(): UserInterface
+    {
+        return $this->provider;
     }
 }

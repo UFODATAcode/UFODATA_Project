@@ -3,15 +3,16 @@
 namespace App\Entity;
 
 use App\Contract\ResourceInterface;
+use App\Contract\UserInterface;
 use App\Repository\Entity\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface, ResourceInterface
+class User extends AbstractEntity implements SecurityUserInterface, PasswordAuthenticatedUserInterface, ResourceInterface, UserInterface
 {
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -42,7 +43,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     /**
      * A visual identifier that represents this user.
      *
-     * @see UserInterface
+     * @see SecurityUserInterface
      */
     public function getUserIdentifier(): string
     {
@@ -84,11 +85,16 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     }
 
     /**
-     * @see UserInterface
+     * @see SecurityUserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getProvider(): UserInterface
+    {
+        return $this;
     }
 }

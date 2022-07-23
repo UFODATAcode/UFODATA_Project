@@ -2,7 +2,7 @@
 
 namespace App\Contract;
 
-interface MeasurementValueInterface
+interface UserInterface
 {
 
 }

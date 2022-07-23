@@ -2,10 +2,9 @@
 
 namespace App\Handler;
 
-use App\Command\AddObservationCommand;
+use App\Contract\AddObservationCommandInterface;
 use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
-use App\Entity\User;
 
 class AddObservationHandler
 {
@@ -13,13 +12,13 @@ class AddObservationHandler
         private readonly ObservationRepositoryInterface $observationRepository
     ) {}
 
-    public function __invoke(AddObservationCommand $command, User $user): void
+    public function __invoke(AddObservationCommandInterface $command): void
     {
         $this->observationRepository->add(
             new Observation(
-                $user,
-                $command->uuid,
-                $command->name,
+                $command->getProvider(),
+                $command->getUuid(),
+                $command->getName(),
             ),
             true
         );

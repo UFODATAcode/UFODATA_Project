@@ -2,19 +2,18 @@
 
 namespace App\Handler;
 
+use App\Contract\DeleteMeasurementCommandInterface;
 use App\Contract\MeasurementRepositoryInterface;
-use App\Contract\UpdateMeasurementCommandInterface;
 
-class UpdateMeasurementHandler
+class DeleteMeasurementHandler
 {
     public function __construct(
         private readonly MeasurementRepositoryInterface $measurementRepository,
     ) {}
 
-    public function __invoke(UpdateMeasurementCommandInterface $command): void
+    public function __invoke(DeleteMeasurementCommandInterface $command): void
     {
         $measurement = $this->measurementRepository->findOneByUuid($command->getUuid());
-        $measurement->setName($command->getName());
-        $this->measurementRepository->update();
+        $this->measurementRepository->remove($measurement);
     }
 }

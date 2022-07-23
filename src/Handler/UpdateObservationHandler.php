@@ -2,32 +2,19 @@
 
 namespace App\Handler;
 
-use App\Command\UpdateObservationCommand;
 use App\Contract\ObservationRepositoryInterface;
-use App\Entity\User;
-use App\Exception\UserIsNotResourceOwnerException;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use App\Contract\UpdateObservationCommandInterface;
 
 class UpdateObservationHandler
 {
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {}
 
-    public function __invoke(UpdateObservationCommand $command, User $user): void
+    public function __invoke(UpdateObservationCommandInterface $command): void
     {
-        $observation = $this->observationRepository->findOneByUuid($command->uuid);
-        $userIsNotResourceOwner = $observation->getProvider() !== $user;
-        $userIsNotAdmin = !$this->authorizationChecker->isGranted('ROLE_ADMIN');
-
-        if ($userIsNotResourceOwner && $userIsNotAdmin) {
-            throw new UserIsNotResourceOwnerException();
-        }
-
-        if (null !== $command->name && $observation->getName() !== $command->name) {
-            $observation->setName($command->name);
-        }
+        $observation = $this->observationRepository->findOneByUuid($command->getUuid());
+        $observation->setName($command->getName());
 
         $this->observationRepository->update();
     }

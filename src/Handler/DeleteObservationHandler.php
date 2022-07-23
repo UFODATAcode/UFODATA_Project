@@ -2,29 +2,18 @@
 
 namespace App\Handler;
 
-use App\Command\DeleteObservationCommand;
+use App\Contract\DeleteObservationCommandInterface;
 use App\Contract\ObservationRepositoryInterface;
-use App\Entity\User;
-use App\Exception\UserIsNotResourceOwnerException;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class DeleteObservationHandler
 {
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {}
 
-    public function __invoke(DeleteObservationCommand $command, User $user): void
+    public function __invoke(DeleteObservationCommandInterface $command): void
     {
-        $observation = $this->observationRepository->findOneByUuid($command->uuid);
-        $userIsNotResourceOwner = $observation->getProvider() !== $user;
-        $userIsNotAdmin = !$this->authorizationChecker->isGranted('ROLE_ADMIN');
-
-        if ($userIsNotResourceOwner && $userIsNotAdmin) {
-            throw new UserIsNotResourceOwnerException();
-        }
-
+        $observation = $this->observationRepository->findOneByUuid($command->getUuid());
         $this->observationRepository->remove($observation);
     }
 }

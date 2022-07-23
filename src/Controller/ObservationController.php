@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Command\AddObservationCommand;
 use App\Command\DeleteObservationCommand;
 use App\Command\UpdateObservationCommand;
-use App\Entity\User;
 use App\Handler\AddObservationHandler;
 use App\Handler\DeleteObservationHandler;
 use App\Handler\GetObservationsHandler;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('/observations')]
 class ObservationController extends AbstractController
@@ -29,23 +27,23 @@ class ObservationController extends AbstractController
     ) {}
 
     #[Route(name: 'add_observation', methods: Request::METHOD_POST)]
-    public function addObservation(AddObservationCommand $command, #[CurrentUser] User $user): Response
+    public function addObservation(AddObservationCommand $command): Response
     {
-        $this->addObservationHandler->__invoke($command, $user);
+        $this->addObservationHandler->__invoke($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     #[Route(path: '/{uuid}', name: 'delete_observation', methods: Request::METHOD_DELETE)]
-    public function deleteObservation(DeleteObservationCommand $command, #[CurrentUser] User $user): Response
+    public function deleteObservation(DeleteObservationCommand $command): Response
     {
-        $this->deleteObservationHandler->__invoke($command, $user);
+        $this->deleteObservationHandler->__invoke($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     #[Route(path: '/{uuid}', name: 'update_observation', methods: Request::METHOD_PATCH)]
-    public function updateObservation(UpdateObservationCommand $command, #[CurrentUser] User $user): Response
+    public function updateObservation(UpdateObservationCommand $command): Response
     {
-        $this->updateObservationHandler->__invoke($command, $user);
+        $this->updateObservationHandler->__invoke($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 

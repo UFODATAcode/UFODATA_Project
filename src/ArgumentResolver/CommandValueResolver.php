@@ -46,6 +46,10 @@ class CommandValueResolver implements ArgumentValueResolverInterface
             foreach ($commandClass::getFilesNames() as $fileName) {
                 $decodedContent[$fileName] = $request->files->get($fileName);
             }
+
+            foreach ($request->request->all() as $requestItemKey => $requestItemValue) {
+                $decodedContent[$requestItemKey] = $requestItemValue;
+            }
         }
 
         $violations = new ConstraintViolationList();
@@ -62,6 +66,13 @@ class CommandValueResolver implements ArgumentValueResolverInterface
         if ($violations->count() > 0) {
             throw new ValidationException($violations);
         }
+
+        /*
+           Every command must have provider specified.
+           The proper value will be fetched by dedicated normalizer.
+           To execute the normalizer first we must mark that such field needs to be denormalized.
+        */
+        $decodedContent['provider'] = null;
 
         yield $this->denormalizer->denormalize($decodedContent, $commandClass);
     }

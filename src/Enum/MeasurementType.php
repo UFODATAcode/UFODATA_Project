@@ -4,7 +4,10 @@ namespace App\Enum;
 
 enum MeasurementType: string
 {
-    case RadioFrequencySpectrum = 'rfs';
+    case RadioFrequencySpectrum = 'mcrfs';
+    case MissionControlData = 'mcdat';
+    case MissionControlAdsBFlightTracking = 'mcflt';
+    case MissionControlWeather = 'mcwth';
 
     /**
      * @return string[]

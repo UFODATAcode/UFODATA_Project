@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 class ObservationFixtures extends Fixture
 {
-    public const ADMIN_1_EMAIL = 'admin-1@system.com';
+    public const ADMIN_1_EMAIL = 'admin@ufodata.com';
     public const ADMIN_1_UUID = 'ab027fd7-e2ca-4de6-a2e5-b47bb9128b86';
 
     public const USER_1_EMAIL = 'test@test.com';
@@ -31,6 +31,7 @@ class ObservationFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        //TODO: check env and not load if != test
         $admin1 = new User(self::ADMIN_1_EMAIL, Uuid::fromString(self::ADMIN_1_UUID));
         $admin1->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
         $admin1->setRoles(['ROLE_ADMIN']);
