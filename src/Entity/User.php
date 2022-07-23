@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User extends AbstractEntity implements SecurityUserInterface, PasswordAuthenticatedUserInterface, ResourceInterface, UserInterface
+class User extends AbstractEntity implements SecurityUserInterface, PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -23,11 +23,15 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
-    public function __construct(string $email, UuidInterface $uuid)
+    #[ORM\Column(type: 'string', length: 32, unique: true)]
+    private string $name;
+
+    public function __construct(string $email, UuidInterface $uuid, string $name)
     {
         parent::__construct($uuid);
 
         $this->email = $email;
+        $this->name = $name;
     }
 
     public function getEmail(): string
@@ -96,5 +100,10 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
     public function getProvider(): UserInterface
     {
         return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

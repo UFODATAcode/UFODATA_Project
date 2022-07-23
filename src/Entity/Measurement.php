@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Contract\ResourceInterface;
 use App\Contract\UserInterface;
+use App\Enum\MeasurementType;
 use App\Repository\Entity\MeasurementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -126,4 +127,6 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     {
         return $this->provider;
     }
+
+    abstract public function getType(): MeasurementType;
 }

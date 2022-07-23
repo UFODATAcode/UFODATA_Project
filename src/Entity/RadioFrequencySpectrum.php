@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Enum\MeasurementType;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class RadioFrequencySpectrum extends Measurement
 {
-
+    public function getType(): MeasurementType
+    {
+        return MeasurementType::RadioFrequencySpectrum;
+    }
 }

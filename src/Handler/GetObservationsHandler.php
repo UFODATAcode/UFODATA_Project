@@ -2,9 +2,9 @@
 
 namespace App\Handler;
 
+use App\Contract\GetObservationsQueryInterface;
 use App\Contract\ObservationRepositoryInterface;
 use App\Entity\Observation;
-use App\Query\GetObservationsQuery;
 use App\ValueObject\Pagination;
 use App\Response\GetResourcesResponse;
 use App\Response\ObservationResponse as ResponseModel;
@@ -15,7 +15,7 @@ class GetObservationsHandler
         private readonly ObservationRepositoryInterface $observationRepository
     ) {}
 
-    public function __invoke(GetObservationsQuery $query): GetResourcesResponse
+    public function __invoke(GetObservationsQueryInterface $query): GetResourcesResponse
     {
         $pagination = $query->pagination ?? new Pagination();
         $observations = \array_map(

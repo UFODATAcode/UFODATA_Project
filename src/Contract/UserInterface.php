@@ -2,7 +2,7 @@
 
 namespace App\Contract;
 
-interface UserInterface
+interface UserInterface extends ResourceInterface
 {
-
+    public function getName(): string;
 }

@@ -2,12 +2,12 @@
 
 namespace App\Query;
 
-use App\Contract\GetObservationsQueryInterface;
+use App\Contract\GetMeasurementsQueryInterface;
 use App\Contract\PaginationInterface;
 use App\ValueObject\Pagination;
 use Symfony\Component\Validator\Constraints\Type;
 
-class GetObservationsQuery implements GetObservationsQueryInterface
+class GetMeasurementsQuery implements GetMeasurementsQueryInterface
 {
     #[Type(Pagination::class)]
     public PaginationInterface $pagination;
