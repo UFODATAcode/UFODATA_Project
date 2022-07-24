@@ -7,8 +7,10 @@ use App\Command\DeleteMeasurementCommand;
 use App\Command\UpdateMeasurementCommand;
 use App\Handler\AddMeasurementHandler;
 use App\Handler\DeleteMeasurementHandler;
+use App\Handler\DownloadOriginalMeasurementFileHandler;
 use App\Handler\GetMeasurementsHandler;
 use App\Handler\UpdateMeasurementHandler;
+use App\Query\DownloadOriginalMeasurementFileQuery;
 use App\Query\GetMeasurementsQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,6 +26,7 @@ class MeasurementController extends AbstractController
         private readonly UpdateMeasurementHandler $updateMeasurementHandler,
         private readonly DeleteMeasurementHandler $deleteMeasurementHandler,
         private readonly GetMeasurementsHandler $getMeasurementsHandler,
+        private readonly DownloadOriginalMeasurementFileHandler $downloadOriginalMeasurementFileHandler,
     ) {}
 
     #[Route(name: 'add_measurement', methods: Request::METHOD_POST)]
@@ -51,5 +54,11 @@ class MeasurementController extends AbstractController
     public function getMeasurements(GetMeasurementsQuery $query): JsonResponse
     {
         return new JsonResponse($this->getMeasurementsHandler->__invoke($query));
+    }
+
+    #[Route(path: '/{uuid}/download-original', methods: Request::METHOD_GET)]
+    public function downloadOriginalMeasurementFile(DownloadOriginalMeasurementFileQuery $query): Response
+    {
+        return $this->downloadOriginalMeasurementFileHandler->__invoke($query);
     }
 }

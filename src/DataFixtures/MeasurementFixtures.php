@@ -12,6 +12,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Entity\File as FileMetadata;
 
 class MeasurementFixtures extends Fixture
 {
@@ -61,13 +62,24 @@ class MeasurementFixtures extends Fixture
         );
         $manager->persist($observation1);
 
+        $measurement1rfs1OriginalFileName = 'measurement-rfs.csv';
+        $measurement1rfs1FileName = 'test-' . $measurement1rfs1OriginalFileName;
+        $measurement1rfs1FilePath = '/var/www/html/public/measurements/' . $measurement1rfs1FileName;
+        copy(codecept_data_dir($measurement1rfs1OriginalFileName), $measurement1rfs1FilePath);
+
         $measurement1Rfs1 = new RadioFrequencySpectrum(
             Uuid::fromString(self::MEASUREMENT_1_UUID),
             $observation1,
             $user1,
-            new File(codecept_data_dir('measurement-rfs.csv')),
+            new File($measurement1rfs1FilePath),
             self::MEASUREMENT_1_NAME
         );
+        $originalFileMetadata = new FileMetadata();
+        $originalFileMetadata->setName($measurement1rfs1FileName);
+        $originalFileMetadata->setOriginalName($measurement1rfs1FileName);
+        $originalFileMetadata->setMimeType('text/plain');
+        $originalFileMetadata->setSize(100);
+        $measurement1Rfs1->setOriginalFileMetadata($originalFileMetadata);
         $manager->persist($measurement1Rfs1);
 
         $measurement2McData1 = new MissionControlData(

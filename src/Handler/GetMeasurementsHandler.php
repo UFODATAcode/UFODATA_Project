@@ -2,7 +2,7 @@
 
 namespace App\Handler;
 
-use App\Contract\GetMeasurementsQueryInterface;
+use App\Contract\GetMeasurementsPaginatedQueryInterface;
 use App\Contract\MeasurementRepositoryInterface;
 use App\Entity\Measurement;
 use App\Response\ObservationResponse;
@@ -14,10 +14,10 @@ use App\Response\MeasurementResponse;
 class GetMeasurementsHandler
 {
     public function __construct(
-        private readonly MeasurementRepositoryInterface $measurementRepository
+        private readonly MeasurementRepositoryInterface $measurementRepository,
     ) {}
 
-    public function __invoke(GetMeasurementsQueryInterface $query): GetResourcesResponse
+    public function __invoke(GetMeasurementsPaginatedQueryInterface $query): GetResourcesResponse
     {
         $pagination = $query->pagination ?? new Pagination();
         $observations = \array_map(
