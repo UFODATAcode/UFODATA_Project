@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Contract\ResourceInterface;
 use App\Contract\UserInterface;
 use App\Repository\Entity\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,20 +13,26 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 #[ORM\Table(name: '`user`')]
 class User extends AbstractEntity implements SecurityUserInterface, PasswordAuthenticatedUserInterface, UserInterface
 {
+    public const EMAIL_MAX_LENGTH = 180;
+    public const NAME_MAX_LENGTH = 32;
+
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     #[ORM\Column(type: 'string')]
     private string $password;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: self::EMAIL_MAX_LENGTH, unique: true)]
     private string $email;
 
-    #[ORM\Column(type: 'string', length: 32, unique: true)]
+    #[ORM\Column(type: 'string', length: self::NAME_MAX_LENGTH, unique: true)]
     private string $name;
 
-    public function __construct(string $email, UuidInterface $uuid, string $name)
-    {
+    public function __construct(
+        string $email,
+        UuidInterface $uuid,
+        string $name,
+    ) {
         parent::__construct($uuid);
 
         $this->email = $email;
