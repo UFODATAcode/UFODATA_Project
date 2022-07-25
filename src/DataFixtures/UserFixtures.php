@@ -25,6 +25,8 @@ class UserFixtures extends Fixture
     public const USER_3_UUID = 'c5c5c21a-ac8c-428d-854f-dcf1b002159e';
     public const USER_3_NAME = 'Dolor Sit';
 
+    public const NOT_EXISTING_USER_UUID = '199e80fd-e1ca-4d6f-a444-58756c2b0ca1';
+
     public function load(ObjectManager $manager): void
     {
         $admin1 = new User(self::ADMIN_1_EMAIL, Uuid::fromString(self::ADMIN_1_UUID), self::ADMIN_1_NAME);

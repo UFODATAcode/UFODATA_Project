@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Command\AddUserCommand;
 use App\Handler\AddUserHandler;
+use App\Handler\GetUserHandler;
 use App\Handler\GetUsersHandler;
+use App\Query\GetUserQuery;
 use App\Query\GetUsersQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,6 +20,7 @@ class UserController extends AbstractController
     public function __construct(
         private readonly AddUserHandler $addUserHandler,
         private readonly GetUsersHandler $getUsersHandler,
+        private readonly GetUserHandler $getUserHandler,
     ) {}
 
     #[Route(name: 'add_user', methods: Request::METHOD_POST)]
@@ -31,5 +34,11 @@ class UserController extends AbstractController
     public function getUsers(GetUsersQuery $query): JsonResponse
     {
         return new JsonResponse($this->getUsersHandler->__invoke($query), Response::HTTP_OK);
+    }
+
+    #[Route(path: '/{uuid}', name: 'get_user', methods: Request::METHOD_GET)]
+    public function getUserDetails(GetUserQuery $query): JsonResponse
+    {
+        return new JsonResponse($this->getUserHandler->__invoke($query), Response::HTTP_OK);
     }
 }

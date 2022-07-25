@@ -6,7 +6,7 @@ use App\Contract\GetUsersQueryInterface;
 use App\Contract\UserRepositoryInterface;
 use App\Entity\User;
 use App\Response\GetResourcesResponse;
-use App\Response\UserResponse;
+use App\Response\ListUserResponse;
 
 class GetUsersHandler
 {
@@ -18,7 +18,7 @@ class GetUsersHandler
     {
         return new GetResourcesResponse(
             \array_map(
-                fn(User $user) => new UserResponse(
+                fn(User $user) => new ListUserResponse(
                     $user->getUuid(),
                     $user->getEmail(),
                     $user->getName(),

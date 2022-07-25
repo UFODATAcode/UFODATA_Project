@@ -3,7 +3,6 @@
 namespace App\EventListener;
 
 use App\Exception\ActionDeniedException;
-use App\Exception\UserIsNotResourceOwnerException;
 use App\Exception\ValidationException;
 use App\Factory\ErrorResponseFactory;
 use Symfony\Component\HttpFoundation\Response;
