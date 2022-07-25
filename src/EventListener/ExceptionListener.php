@@ -8,6 +8,7 @@ use App\Exception\ValidationException;
 use App\Factory\ErrorResponseFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ExceptionListener
 {
@@ -24,10 +25,11 @@ class ExceptionListener
                 \json_encode($this->errorResponseFactory->buildFromViolationList($exception->getViolations())),
                 Response::HTTP_BAD_REQUEST,
             ),
-            ActionDeniedException::class, UserIsNotResourceOwnerException::class => new Response(
+            ActionDeniedException::class => new Response(
                 \json_encode($this->errorResponseFactory->buildFromActionDeniedException($exception)),
                 Response::HTTP_FORBIDDEN,
             ),
+            AccessDeniedHttpException::class => new Response(null, Response::HTTP_FORBIDDEN),
             default => null,
         };
 
