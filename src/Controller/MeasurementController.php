@@ -56,7 +56,7 @@ class MeasurementController extends AbstractController
         return new JsonResponse($this->getMeasurementsHandler->__invoke($query));
     }
 
-    #[Route(path: '/{uuid}/download-original', methods: Request::METHOD_GET)]
+    #[Route(path: '/{uuid}/download-original', name: 'download_original_measurement', methods: Request::METHOD_GET)]
     public function downloadOriginalMeasurementFile(DownloadOriginalMeasurementFileQuery $query): Response
     {
         return $this->downloadOriginalMeasurementFileHandler->__invoke($query);

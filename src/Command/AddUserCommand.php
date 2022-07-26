@@ -41,6 +41,10 @@ class AddUserCommand implements AddUserCommandInterface
     ])]
     public array $roles;
 
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
+    public bool $active;
+
     public UserInterface $provider;
 
     public function getEmail(): string
@@ -56,6 +60,11 @@ class AddUserCommand implements AddUserCommandInterface
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getActive(): bool
+    {
+        return $this->active;
     }
 
     /**

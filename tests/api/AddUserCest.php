@@ -21,6 +21,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
@@ -41,6 +42,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
@@ -65,11 +67,20 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
-        $I->seeInRepository(User::class, ['uuid' => $newUserUuid]);
+        $I->seeInRepository(
+            User::class,
+            [
+                'uuid' => $newUserUuid,
+                'email' => 'new@user.com',
+                'name' => 'nuser',
+                'active' => true,
+            ]
+        );
     }
 
     public function iGetAnErrorWhenIDontProvideInvalidUuid(ApiTester $I): void
@@ -88,6 +99,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -118,6 +130,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -149,6 +162,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -179,6 +193,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -210,6 +225,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -241,6 +257,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -271,6 +288,7 @@ class AddUserCest
                 'roles' => [
                     'ROLE_USER',
                 ],
+                'active' => true,
             ]
         );
 
@@ -302,6 +320,7 @@ class AddUserCest
                 'roles' => [
                     'NOT_EXISTIN_ROLE',
                 ],
+                'active' => true,
             ]
         );
 
@@ -312,6 +331,69 @@ class AddUserCest
                     'property' => 'roles[0]',
                     'message' => 'The value you selected is not a valid choice.',
                     'code' => '8e179f1b-97aa-4560-a02f-2a8b42e49df7',
+                ]
+            ]
+        ]);
+    }
+
+    public function iGetAnErrorWhenISendInvalidActiveValue(ApiTester $I): void
+    {
+        $I->loadFixtures(UserFixtures::class);
+
+        $I->setBearerTokenForUser(UserFixtures::ADMIN_1_EMAIL);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost(
+            '/users',
+            [
+                'uuid' => 'aeaeba0f-af29-4bae-83d0-e1d0a24fbcfe',
+                'email' => 'some@user.com',
+                'name' => 'nuser',
+                'password' => 'strongpwd',
+                'roles' => [
+                    'ROLE_USER',
+                ],
+                'active' => 'lorem',
+            ]
+        );
+
+        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'active',
+                    'message' => 'This value should be of type bool.',
+                    'code' => 'ba785a8c-82cb-4283-967c-3cf342181b40',
+                ]
+            ]
+        ]);
+    }
+
+    public function iGetAnErrorWhenIDontSendAnActiveField(ApiTester $I): void
+    {
+        $I->loadFixtures(UserFixtures::class);
+
+        $I->setBearerTokenForUser(UserFixtures::ADMIN_1_EMAIL);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost(
+            '/users',
+            [
+                'uuid' => 'aeaeba0f-af29-4bae-83d0-e1d0a24fbcfe',
+                'email' => 'some@user.com',
+                'name' => 'nuser',
+                'password' => 'strongpwd',
+                'roles' => [
+                    'ROLE_USER',
+                ],
+            ]
+        );
+
+        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $I->seeResponseContainsJson([
+            'errors' => [
+                [
+                    'property' => 'active',
+                    'message' => 'This value should not be null.',
+                    'code' => 'ad32d13f-c3d4-423b-909a-857b961eb720',
                 ]
             ]
         ]);

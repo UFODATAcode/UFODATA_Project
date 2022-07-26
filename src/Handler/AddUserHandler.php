@@ -20,6 +20,7 @@ class AddUserHandler
             $command->getEmail(),
             $command->getUuid(),
             $command->getName(),
+            $command->getActive(),
         );
         $newUser
             ->setRoles($command->getRoles())

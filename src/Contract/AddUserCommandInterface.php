@@ -9,4 +9,5 @@ interface AddUserCommandInterface extends CommandInterface
     public function getPassword(): string;
     /** @return string[] */
     public function getRoles(): array;
+    public function getActive(): bool;
 }

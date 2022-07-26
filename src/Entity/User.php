@@ -28,15 +28,20 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
     #[ORM\Column(type: 'string', length: self::NAME_MAX_LENGTH, unique: true)]
     private string $name;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $active;
+
     public function __construct(
         string $email,
         UuidInterface $uuid,
         string $name,
+        bool $active = false,
     ) {
         parent::__construct($uuid);
 
         $this->email = $email;
         $this->name = $name;
+        $this->active = $active;
     }
 
     public function getEmail(): string
@@ -110,5 +115,16 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+        return $this;
     }
 }
