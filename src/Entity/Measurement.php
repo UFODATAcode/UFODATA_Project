@@ -128,5 +128,25 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
         return $this->provider;
     }
 
+    public function getData(): array
+    {
+        return \array_merge(
+            parent::getData(),
+            [
+                'observation' => $this->getObservation()->getUuid(),
+                'provider' => $this->getProvider()->getUuid(),
+                'name' => $this->getName(),
+                'originalFileMetadata' => [
+                    'name' => $this->getOriginalFileMetadata()->getName(),
+                    'originalName' => $this->getOriginalFileMetadata()->getOriginalName(),
+                    'size' => $this->getOriginalFileMetadata()->getSize(),
+                    'dimensions' => $this->getOriginalFileMetadata()->getDimensions(),
+                ],
+                'providedAt' => $this->providedAt->format('c'),
+                'updatedAt' => $this->updatedAt->format('c'),
+            ]
+        );
+    }
+
     abstract public function getType(): MeasurementType;
 }

@@ -127,4 +127,17 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
         $this->active = $active;
         return $this;
     }
+
+    public function getData(): array
+    {
+        return \array_merge(
+            parent::getData(),
+            [
+                'roles' => $this->getRoles(),
+                'password' => $this->getPassword(),
+                'email' => $this->getEmail(),
+                'name' => $this->getName(),
+            ]
+        );
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Tests\Api;
 
 use App\DataFixtures\ObservationFixtures;
+use App\Entity\DeletedResource;
 use App\Entity\Observation;
 use \App\Tests\ApiTester;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,10 +48,12 @@ class DeleteObservationCest
     {
         $I->loadFixtures(ObservationFixtures::class);
         $I->seeInRepository(Observation::class, ['uuid' => ObservationFixtures::OBSERVATION_1_UUID]);
+        $I->dontSeeInRepository(DeletedResource::class, ['uuid' => ObservationFixtures::OBSERVATION_1_UUID]);
         $I->setBearerTokenForUser(ObservationFixtures::USER_1_EMAIL);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendDelete('/observations/' . ObservationFixtures::OBSERVATION_1_UUID);
         $I->dontSeeInRepository(Observation::class, ['uuid' => ObservationFixtures::OBSERVATION_1_UUID]);
+        $I->seeInRepository(DeletedResource::class, ['uuid' => ObservationFixtures::OBSERVATION_1_UUID]);
     }
 
     public function iCanDeleteObservationWhenIAmAnAdminAndNotItsOwner(ApiTester $I)

@@ -58,4 +58,16 @@ class Observation extends AbstractEntity implements ResourceInterface
     {
         return $this->providedAt;
     }
+
+    public function getData(): array
+    {
+        return \array_merge(
+            parent::getData(),
+            [
+                'provider' => $this->getProvider()->getUuid(),
+                'name' => $this->getName(),
+                'providedAt' => $this->getProvidedAt()->format('c'),
+            ]
+        );
+    }
 }

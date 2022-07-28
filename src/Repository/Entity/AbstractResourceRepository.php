@@ -5,6 +5,7 @@ namespace App\Repository\Entity;
 use App\Contract\PaginationInterface;
 use App\Contract\ResourceInterface;
 use App\Contract\ResourceRepositoryInterface;
+use App\Entity\DeletedResource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,11 +29,28 @@ abstract class AbstractResourceRepository extends ServiceEntityRepository implem
 
     public function remove(ResourceInterface $resource, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($resource);
+        $manager = $this->getEntityManager();
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        $manager->beginTransaction();
+
+        try {
+            $manager->persist(new DeletedResource(
+                $resource->getUuid(),
+                \get_class($resource),
+                $resource->getData(),
+                $resource->getId(),
+            ));
+            $manager->remove($resource);
+
+            if ($flush) {
+                $manager->flush();
+            }
+        } catch (\Throwable $exception) {
+            $manager->rollback();
+            throw $exception;
         }
+
+        $manager->commit();
     }
 
     public function update(): void

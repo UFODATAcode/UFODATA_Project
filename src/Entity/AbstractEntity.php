@@ -29,4 +29,12 @@ abstract class AbstractEntity
     {
         return $this->uuid;
     }
+
+    public function getData(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'uuid' => $this->getUuid(),
+        ];
+    }
 }
