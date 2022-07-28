@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Command\AddUserCommand;
+use App\Command\DeleteUserCommand;
 use App\Handler\AddUserHandler;
+use App\Handler\DeleteUserHandler;
 use App\Handler\GetUserHandler;
 use App\Handler\GetUsersHandler;
 use App\Query\GetUserQuery;
@@ -21,6 +23,7 @@ class UserController extends AbstractController
         private readonly AddUserHandler $addUserHandler,
         private readonly GetUsersHandler $getUsersHandler,
         private readonly GetUserHandler $getUserHandler,
+        private readonly DeleteUserHandler $deleteUserHandler,
     ) {}
 
     #[Route(name: 'add_user', methods: Request::METHOD_POST)]
@@ -40,5 +43,12 @@ class UserController extends AbstractController
     public function getUserDetails(GetUserQuery $query): JsonResponse
     {
         return new JsonResponse($this->getUserHandler->__invoke($query), Response::HTTP_OK);
+    }
+
+    #[Route(path: '/{uuid}', name: 'delete_user', methods: Request::METHOD_DELETE)]
+    public function deleteUserDetails(DeleteUserCommand $command): Response
+    {
+        $this->deleteUserHandler->__invoke($command);
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

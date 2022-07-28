@@ -40,6 +40,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users/\w+, roles: ROLE_ADMIN, methods: DELETE }
         - { path: ^/api/users/\w+, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: ROLE_ADMIN }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
