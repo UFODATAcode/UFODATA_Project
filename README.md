@@ -1,5 +1,13 @@
 # UFODATA
 
+## TOC
+
+* [What is the project about?](#what-is-the-project-about)
+* [How can I set up the project?](#how-can-i-set-up-the-project)
+* [How can I run tests?](#how-can-i-run-tests)
+* [Where can I find what was changed?](#where-can-i-find-what-was-changed)
+* [Why did you decide to use XXX or do YYY in that way?](#why-did-you-decide-to-use-xxx-or-do-yyy-in-that-way)
+
 ## What is the project about?
 
 Main goal of the project is to provide a place for storing, processing and providing access to all UAP-related data obtained by automatic stations (like [UFODAP](https://ufodap.com/)).
@@ -60,3 +68,10 @@ docker-compose exec app-test vendor/bin/codecept run api
 ## Where can I find what was changed?
 
 Check out our [changelog](/CHANGELOG.md).
+
+## Why did you decide to use XXX or do YYY in that way?
+
+We want to make clear, supported by arguments decisions about the project.
+It doesn't matter if a decision is about project's architecture, chosen library or way to validate something.
+All of them will be documented according to the [Markdown Any Decision Record](https://adr.github.io/madr/) standard.
+You can find our decisions [here](/docs/decisions/README.md).

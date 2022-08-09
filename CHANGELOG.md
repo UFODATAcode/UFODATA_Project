@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.36.0] - 2022-08-09
+### Added
+- [Markdown Any Decision Record](https://adr.github.io/madr/) by [@kryst3q](https://github.com/kryst3q) to document project decisions
+
 ## [0.35.0] - 2022-08-09
 ### Added 
 - Readme file by [@kryst3q](https://github.com/kryst3q)
