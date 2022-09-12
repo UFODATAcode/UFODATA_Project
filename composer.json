@@ -30,6 +30,7 @@
         "vich/uploader-bundle": "^1.20"
     },
     "require-dev": {
+        "captbaritone/mailcatcher-codeception-module": "dev-master",
         "codeception/codeception": "5.0.x-dev",
         "codeception/module-asserts": "^3.0",
         "codeception/module-db": "^3.0",

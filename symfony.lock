@@ -8,6 +8,9 @@
     "brick/math": {
         "version": "0.9.3"
     },
+    "captbaritone/mailcatcher-codeception-module": {
+        "version": "3.x-dev"
+    },
     "codeception/codeception": {
         "version": "5.0",
         "recipe": {
@@ -166,6 +169,9 @@
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.7.0"
+    },
+    "guzzle/guzzle": {
+        "version": "v3.8.1"
     },
     "guzzlehttp/guzzle": {
         "version": "7.4.4"

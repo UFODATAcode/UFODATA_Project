@@ -48,6 +48,7 @@ services:
       - POSTGRES_PASSWORD=password
     depends_on:
       - sql-db-test
+      - mailcatcher
 
   sql-db:
     <<: *sql-db-base
@@ -58,6 +59,10 @@ services:
   sql-db-test:
     <<: *sql-db-base
     container_name: ufodata.sql-db-test
+
+  mailcatcher:
+    image: sj26/mailcatcher:v0.8.2
+    container_name: ufodata.mailcatcher
 
 volumes:
   ufodata-sql-db: ~
