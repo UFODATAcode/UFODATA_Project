@@ -7,11 +7,11 @@ use App\Enum\MeasurementType;
 class MeasurementResponse implements \JsonSerializable
 {
     public function __construct(
-        private readonly string $uuid,
-        private readonly string $name,
-        private readonly MeasurementType $type,
-        private readonly ObservationResponse $observation,
-        private readonly ProviderResponse $provider,
+        public readonly string $uuid,
+        public readonly string $name,
+        public readonly MeasurementType $type,
+        public readonly ObservationResponse $observation,
+        public readonly ProviderResponse $provider,
     ) {}
 
     public function jsonSerialize(): array

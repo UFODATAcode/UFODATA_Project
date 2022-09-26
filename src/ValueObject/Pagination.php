@@ -3,6 +3,8 @@
 namespace App\ValueObject;
 
 use App\Contract\PaginationInterface;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Validator\Constraints\Type;
 
@@ -14,6 +16,7 @@ class Pagination implements PaginationInterface, \JsonSerializable
 
     #[Type('int')]
     #[Positive]
+    #[OA\Property(property: 'page')]
     private $currentPage = self::FIRST_PAGE;
 
     #[Type('int')]
@@ -22,6 +25,7 @@ class Pagination implements PaginationInterface, \JsonSerializable
 
     private $numberOfPages = self::DEFAULT_NUMBER_OF_PAGES;
 
+    #[Ignore]
     public function getSqlOffset(): int
     {
         return ($this->currentPage - 1) * $this->limit;

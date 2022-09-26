@@ -26,3 +26,14 @@ services:
     App\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    # TODO: Remove after splitting POST /measurements endpoint.
+    App\Serializer\UploadedFilePropertyDescriber:
+        tags:
+            - { name: nelmio_api_doc.object_model.property_describer }
+
+    # TODO: This custom describer should be removed after implementing built-in one.
+    # @see https://github.com/nelmio/NelmioApiDocBundle/issues/1532
+    App\Serializer\UuidInterfacePropertyDescriber:
+        tags:
+            - { name: nelmio_api_doc.object_model.property_describer }

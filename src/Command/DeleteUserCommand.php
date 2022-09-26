@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Validator\ActionOnResourceIsGranted;
 use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class DeleteUserCommand implements DeleteUserCommandInterface
@@ -18,6 +19,7 @@ class DeleteUserCommand implements DeleteUserCommandInterface
     #[ActionOnResourceIsGranted(entityClassName: User::class)]
     public UuidInterface $uuid;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getUuid(): UuidInterface

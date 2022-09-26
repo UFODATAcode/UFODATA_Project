@@ -8,6 +8,7 @@ use App\Entity\Measurement;
 use App\Validator\ActionOnResourceIsGranted;
 use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UpdateMeasurementCommand implements UpdateMeasurementCommandInterface
@@ -23,6 +24,7 @@ class UpdateMeasurementCommand implements UpdateMeasurementCommandInterface
     #[Assert\Length(max: Measurement::NAME_MAX_LENGTH)]
     public ?string $name = null;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getUuid(): UuidInterface

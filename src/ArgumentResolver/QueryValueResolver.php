@@ -23,7 +23,13 @@ class QueryValueResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return \in_array(QueryInterface::class, \class_implements($argument->getType()));
+        $type = $argument->getType();
+
+        if ($type === null) {
+            return false;
+        }
+
+        return \in_array(QueryInterface::class, \class_implements($type));
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable

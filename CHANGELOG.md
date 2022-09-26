@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.37.0] - 2022-09-26
+### Added
+- API documentation according to [OpenAPI](https://swagger.io/docs/specification/about/) standard using [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle) library by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.36.0] - 2022-08-09
 ### Added
 - [Markdown Any Decision Record](https://adr.github.io/madr/) by [@kryst3q](https://github.com/kryst3q) to document project decisions

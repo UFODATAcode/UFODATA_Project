@@ -5,8 +5,8 @@ namespace App\Response;
 class ObservationResponse implements \JsonSerializable
 {
     public function __construct(
-        private readonly string $uuid,
-        private readonly ?string $name,
+        public readonly string $uuid,
+        public readonly ?string $name,
     ) {}
 
     public function jsonSerialize(): array

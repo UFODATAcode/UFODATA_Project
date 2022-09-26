@@ -13,6 +13,11 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 #[ORM\Table(name: '`user`')]
 class User extends AbstractEntity implements SecurityUserInterface, PasswordAuthenticatedUserInterface, UserInterface
 {
+    /** @var string[] */
+    public const ROLES = [
+        'ROLE_USER',
+        'ROLE_ADMIN',
+    ];
     public const EMAIL_MAX_LENGTH = 180;
     public const NAME_MAX_LENGTH = 32;
 

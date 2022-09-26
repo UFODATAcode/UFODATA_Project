@@ -8,6 +8,7 @@ use App\Entity\Observation;
 use App\Validator\ActionOnResourceIsGranted;
 use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UpdateObservationCommand implements UpdateObservationCommandInterface
@@ -22,6 +23,7 @@ class UpdateObservationCommand implements UpdateObservationCommandInterface
     #[Assert\Type('string')]
     public string $name;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getUuid(): UuidInterface
