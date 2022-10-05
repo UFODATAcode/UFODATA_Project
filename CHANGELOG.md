@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.38.0] - 2022-10-06
+### Added
+- Info about logged in user in the response of POST `/api/login_check` endpoint by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.37.0] - 2022-09-26
 ### Added
 - API documentation according to [OpenAPI](https://swagger.io/docs/specification/about/) standard using [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle) library by [@kryst3q](https://github.com/kryst3q)

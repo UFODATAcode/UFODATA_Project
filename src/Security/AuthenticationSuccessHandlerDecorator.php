@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
 #[AsDecorator(decorates: 'lexik_jwt_authentication.handler.authentication_success')]
@@ -24,6 +25,9 @@ class AuthenticationSuccessHandlerDecorator implements AuthenticationSuccessHand
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
+        /**
+         * @var UserInterface|SecurityUserInterface $user
+         */
         $user = $token->getUser();
         if ($user instanceof UserInterface && !$user->isActive()) {
             return new JsonResponse(
@@ -35,6 +39,17 @@ class AuthenticationSuccessHandlerDecorator implements AuthenticationSuccessHand
             );
         }
 
-        return $this->inner->onAuthenticationSuccess($request, $token);
+        $response = $this->inner->onAuthenticationSuccess($request, $token);
+
+        $responseContent = \json_decode($response->getContent(), true);
+        $responseContent['user'] = [
+            'uuid' => $user->getUuid(),
+            'name' => $user->getName(),
+            'email' => $user->getUserIdentifier(),
+            'roles' => $user->getRoles(),
+        ];
+        $response->setContent(\json_encode($responseContent));
+
+        return $response;
     }
 }
