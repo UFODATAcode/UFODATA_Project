@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d867cf77fc2f66cdcb055f54accf1c8",
+    "content-hash": "0190f29603b327030538264337f74c9c",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2305,6 +2305,67 @@
                 "source": "https://github.com/nelmio/NelmioApiDocBundle/tree/v4.9.0"
             },
             "time": "2022-04-30T18:28:05+00:00"
+        },
+        {
+            "name": "nelmio/cors-bundle",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nelmio/NelmioCorsBundle.git",
+                "reference": "0ee5ee30b0ee08ea122d431ae6e0ddeb87f035c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nelmio/NelmioCorsBundle/zipball/0ee5ee30b0ee08ea122d431ae6e0ddeb87f035c0",
+                "reference": "0ee5ee30b0ee08ea122d431ae6e0ddeb87f035c0",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "^4.3 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2",
+                "symfony/phpunit-bridge": "^4.3 || ^5.0 || ^6.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nelmio\\CorsBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nelmio",
+                    "homepage": "http://nelm.io"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/nelmio/NelmioCorsBundle/contributors"
+                }
+            ],
+            "description": "Adds CORS (Cross-Origin Resource Sharing) headers support in your Symfony application",
+            "keywords": [
+                "api",
+                "cors",
+                "crossdomain"
+            ],
+            "support": {
+                "issues": "https://github.com/nelmio/NelmioCorsBundle/issues",
+                "source": "https://github.com/nelmio/NelmioCorsBundle/tree/2.2.0"
+            },
+            "time": "2021-12-01T09:34:27+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -7438,55 +7499,6 @@
             "time": "2022-02-20T10:46:06+00:00"
         },
         {
-            "name": "codeception/module-mongodb",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codeception/module-mongodb.git",
-                "reference": "f9d3ed6d46892d6192ede90f17439e99cdd8ea62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-mongodb/zipball/f9d3ed6d46892d6192ede90f17439e99cdd8ea62",
-                "reference": "f9d3ed6d46892d6192ede90f17439e99cdd8ea62",
-                "shasum": ""
-            },
-            "require": {
-                "codeception/codeception": "^5.0",
-                "mongodb/mongodb": "^1.12",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "codeception/stub": "^4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Bodnarchuk"
-                }
-            ],
-            "description": "MongoDB module for Codeception",
-            "homepage": "https://codeception.com/",
-            "keywords": [
-                "codeception",
-                "mongodb"
-            ],
-            "support": {
-                "issues": "https://github.com/Codeception/module-mongodb/issues",
-                "source": "https://github.com/Codeception/module-mongodb/tree/3.0.0"
-            },
-            "time": "2022-05-27T06:42:04+00:00"
-        },
-        {
             "name": "codeception/module-phpbrowser",
             "version": "3.0.0",
             "source": {
@@ -8209,65 +8221,6 @@
             "time": "2022-06-09T08:26:02+00:00"
         },
         {
-            "name": "jean85/pretty-package-versions",
-            "version": "2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Jean85/pretty-package-versions.git",
-                "reference": "ae547e455a3d8babd07b96966b17d7fd21d9c6af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/ae547e455a3d8babd07b96966b17d7fd21d9c6af",
-                "reference": "ae547e455a3d8babd07b96966b17d7fd21d9c6af",
-                "shasum": ""
-            },
-            "require": {
-                "composer-runtime-api": "^2.0.0",
-                "php": "^7.1|^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.17",
-                "jean85/composer-provided-replaced-stub-package": "^1.0",
-                "phpstan/phpstan": "^0.12.66",
-                "phpunit/phpunit": "^7.5|^8.5|^9.4",
-                "vimeo/psalm": "^4.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Jean85\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alessandro Lai",
-                    "email": "alessandro.lai85@gmail.com"
-                }
-            ],
-            "description": "A library to get pretty versions strings of installed dependencies",
-            "keywords": [
-                "composer",
-                "package",
-                "release",
-                "versions"
-            ],
-            "support": {
-                "issues": "https://github.com/Jean85/pretty-package-versions/issues",
-                "source": "https://github.com/Jean85/pretty-package-versions/tree/2.0.5"
-            },
-            "time": "2021-10-08T21:21:46+00:00"
-        },
-        {
             "name": "justinrainbow/json-schema",
             "version": "5.2.12",
             "source": {
@@ -8405,75 +8358,6 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.5"
             },
             "time": "2021-07-01T14:25:37+00:00"
-        },
-        {
-            "name": "mongodb/mongodb",
-            "version": "1.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "e4a7594ac4b31635fa77455c4038a7013024ba28"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/e4a7594ac4b31635fa77455c4038a7013024ba28",
-                "reference": "e4a7594ac4b31635fa77455c4038a7013024ba28",
-                "shasum": ""
-            },
-            "require": {
-                "ext-hash": "*",
-                "ext-json": "*",
-                "ext-mongodb": "^1.13.0",
-                "jean85/pretty-package-versions": "^1.2 || ^2.0.1",
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-php80": "^1.19"
-            },
-            "require-dev": {
-                "doctrine/coding-standard": "^9.0",
-                "squizlabs/php_codesniffer": "^3.6",
-                "symfony/phpunit-bridge": "^5.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.12.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
-                "psr-4": {
-                    "MongoDB\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Braun",
-                    "email": "andreas.braun@mongodb.com"
-                },
-                {
-                    "name": "Jeremy Mikola",
-                    "email": "jmikola@gmail.com"
-                }
-            ],
-            "description": "MongoDB driver library",
-            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
-            "keywords": [
-                "database",
-                "driver",
-                "mongodb",
-                "persistence"
-            ],
-            "support": {
-                "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/1.12.0"
-            },
-            "time": "2022-03-23T20:18:39+00:00"
         },
         {
             "name": "myclabs/deep-copy",
