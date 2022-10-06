@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0190f29603b327030538264337f74c9c",
+    "content-hash": "f56cfa57ee8aca06f2a8400f42dc6fa3",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -6995,16 +6995,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "5.0.x-dev",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "98c50cc836e57108d7336b117b2cc5e0b28899dd"
+                "reference": "b9a12f8bf233c265079c7c38b559ce3bc7dbef27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/98c50cc836e57108d7336b117b2cc5e0b28899dd",
-                "reference": "98c50cc836e57108d7336b117b2cc5e0b28899dd",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b9a12f8bf233c265079c7c38b559ce3bc7dbef27",
+                "reference": "b9a12f8bf233c265079c7c38b559ce3bc7dbef27",
                 "shasum": ""
             },
             "require": {
@@ -7017,9 +7017,11 @@
                 "php": "^8.0",
                 "phpunit/php-code-coverage": "^9.2",
                 "phpunit/php-text-template": "^2.0",
+                "phpunit/php-timer": "^5.0.3",
                 "phpunit/phpunit": "^9.5",
                 "psy/psysh": "^0.11.2",
-                "sebastian/diff": "^4.0",
+                "sebastian/comparator": "^4.0.5",
+                "sebastian/diff": "^4.0.3",
                 "symfony/console": ">=4.4.24 <7.0",
                 "symfony/css-selector": ">=4.4.24 <7.0",
                 "symfony/event-dispatcher": ">=4.4.24 <7.0",
@@ -7028,7 +7030,7 @@
                 "symfony/yaml": ">=4.4.24 <7.0"
             },
             "conflict": {
-                "codeception/lib-innerbrowser": "<3.0",
+                "codeception/lib-innerbrowser": "<3.1",
                 "codeception/module-filesystem": "<3.0",
                 "codeception/module-phpbrowser": "<2.5"
             },
@@ -7058,7 +7060,6 @@
                 "symfony/phpunit-bridge": "For phpunit-bridge support",
                 "vlucas/phpdotenv": "For loading params from .env files"
             },
-            "default-branch": true,
             "bin": [
                 "codecept"
             ],
@@ -7097,7 +7098,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/5.0"
+                "source": "https://github.com/Codeception/Codeception/tree/5.0.3"
             },
             "funding": [
                 {
@@ -7105,7 +7106,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-06-10T22:03:36+00:00"
+            "time": "2022-09-30T15:42:00+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -11347,9 +11348,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "codeception/codeception": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

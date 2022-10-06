@@ -32,7 +32,7 @@
         "vich/uploader-bundle": "^1.20"
     },
     "require-dev": {
-        "codeception/codeception": "5.0.x-dev",
+        "codeception/codeception": "5.0.3",
         "codeception/module-asserts": "^3.0",
         "codeception/module-db": "^3.0",
         "codeception/module-doctrine2": "^3.0",
