@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.40.0] - 2022-10-16
+### Added
+- User registration functionality by [@kryst3q](https://github.com/kryst3q)
+- Symfony debug tools for improving development performance by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.39.0] - 2022-10-06
 ### Added
 - Library to handle CORS requests by [@kryst3q](https://github.com/kryst3q)

@@ -1,4 +1,4 @@
-FROM composer:2.3 AS composer_img
+FROM composer:2.4.2 AS composer_img
 FROM php:8.1-apache
 
 # Enable Apache mod_rewrite

@@ -21,6 +21,7 @@ x-app: &app-base
     - JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
     - JWT_PASSPHRASE=0df88bf33543f5d6886dc4a538c8b07e
     - MONGODB_DB=measurements
+    - FROM_EMAIL_ADDRESS=noreply@ufodata.com
 
 services:
   app:
@@ -33,6 +34,8 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB=ufodata
       - POSTGRES_PASSWORD=password
+      - MAILER_DSN=smtp://mailer:1025
+      - USER_ACTIVATION_LINK_URL=http://0.0.0.0:88/api/activate/%s
     depends_on:
       - sql-db
 
@@ -58,6 +61,11 @@ services:
   sql-db-test:
     <<: *sql-db-base
     container_name: ufodata.sql-db-test
+
+###> symfony/mailer ###
+  mailer:
+    image: schickling/mailcatcher
+###< symfony/mailer ###
 
 volumes:
   ufodata-sql-db: ~

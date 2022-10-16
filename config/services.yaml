@@ -10,6 +10,9 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $fromEmailAddress: '%env(FROM_EMAIL_ADDRESS)%'
+            $userActivationLinkUrl: '%env(USER_ACTIVATION_LINK_URL)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

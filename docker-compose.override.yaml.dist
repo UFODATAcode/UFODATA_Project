@@ -10,3 +10,10 @@ services:
   sql-db-test:
     ports:
       - 5435:5432
+
+###> symfony/mailer ###
+  mailer:
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
+###< symfony/mailer ###

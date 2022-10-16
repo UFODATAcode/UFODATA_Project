@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="W5qOAKQ" resname="user.registration.activation_email.subject">
+        <source>user.registration.activation_email.subject</source>
+        <target>Account activation link</target>
+      </trans-unit>
+      <trans-unit id="0xh7_Ql" resname="user.registration.activation_email.body">
+        <source>user.registration.activation_email.body</source>
+        <target>
+            Thank you for registration!
+
+            To activate your account and be able to login in please click on the following link: {userActivationLink}.
+
+            Best regards,
+
+            The UFODATA Team.
+        </target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

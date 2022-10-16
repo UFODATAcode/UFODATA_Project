@@ -27,7 +27,7 @@ class CommandValueResolver implements ArgumentValueResolverInterface
     {
         $type = $argument->getType();
 
-        if ($type === null) {
+        if ($type === null || $type === 'bool') {
             return false;
         }
 
