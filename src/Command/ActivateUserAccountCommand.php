@@ -6,6 +6,7 @@ use App\Contract\ActivateUserAccountCommandInterface;
 use App\Contract\AnonymousUserInterface;
 use App\Contract\UserInterface;
 use App\Validator\UserActivationLinkExists;
+use App\Validator\UserActivationLinkNotExpired;
 use App\Validator\UserActivationLinkNotUsed;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Ignore;
@@ -17,6 +18,7 @@ class ActivateUserAccountCommand implements ActivateUserAccountCommandInterface
     #[Assert\Uuid]
     #[UserActivationLinkExists]
     #[UserActivationLinkNotUsed]
+    #[UserActivationLinkNotExpired]
     public UuidInterface $uuid;
 
     #[Ignore]

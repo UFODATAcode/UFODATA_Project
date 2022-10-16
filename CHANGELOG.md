@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.42.0] - 2022-10-16
+### Added
+- Validating if user activation link didn't expired by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.41.0] - 2022-10-16
 ### Added
 - Endpoint to activate freshly registered user account by [@kryst3q](https://github.com/kryst3q)
