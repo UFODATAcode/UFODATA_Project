@@ -127,9 +127,9 @@ class User extends AbstractEntity implements SecurityUserInterface, PasswordAuth
         return $this->active;
     }
 
-    public function setActive(bool $active): self
+    public function activate(): self
     {
-        $this->active = $active;
+        $this->active = true;
         return $this;
     }
 

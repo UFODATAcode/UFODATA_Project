@@ -43,4 +43,9 @@ class AnonymousUser implements AnonymousUserInterface
     {
         return '';
     }
+
+    public function activate(): UserInterface
+    {
+        return $this;
+    }
 }

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.41.0] - 2022-10-16
+### Added
+- Endpoint to activate freshly registered user account by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.40.0] - 2022-10-16
 ### Added
 - User registration functionality by [@kryst3q](https://github.com/kryst3q)

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Contract\UserInterface;
-use App\Repository\UserActivationLinkRepository;
+use App\Repository\Entity\UserActivationLinkRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
@@ -69,6 +69,11 @@ class UserActivationLink
         $this->wasUsed = true;
 
         return $this;
+    }
+
+    public function getUser(): UserInterface
+    {
+        return $this->user;
     }
 
     public function __toString(): string

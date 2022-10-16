@@ -2,9 +2,9 @@
 
 namespace App\Handler;
 
+use App\Contract\UserActivationLinkRepositoryInterface;
 use App\Entity\UserActivationLink;
 use App\Event\UserRegisteredEvent;
-use App\Repository\UserActivationLinkRepository;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Mime\Email;
@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SendUserActivationEmailHandler
 {
     public function __construct(
-        private readonly UserActivationLinkRepository $userActivationLinkRepository,
+        private readonly UserActivationLinkRepositoryInterface $userActivationLinkRepository,
         private readonly TranslatorInterface $translator,
         private readonly MailerInterface $mailer,
         private readonly string $fromEmailAddress,
