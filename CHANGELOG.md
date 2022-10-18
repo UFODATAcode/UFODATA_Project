@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.43.0] - 2022-10-19
+### Added
+- "ext-intl" as the requirement in composer.json file by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.42.2] - 2022-10-18
 ### Fixed
 - Setting up twig as dev and test requirement only by [@kryst3q](https://github.com/kryst3q)
