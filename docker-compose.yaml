@@ -35,7 +35,7 @@ services:
       - POSTGRES_DB=ufodata
       - POSTGRES_PASSWORD=password
       - MAILER_DSN=smtp://mailer:1025
-      - USER_ACTIVATION_LINK_URL=http://0.0.0.0:88/api/activate/%s
+      - USER_ACTIVATION_LINK_URL=http://0.0.0.0:88/api/users/activate/%s
     depends_on:
       - sql-db
 
