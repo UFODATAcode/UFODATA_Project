@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.42.1] - 2022-10-18
+## [0.42.2] - 2022-10-18
 ### Fixed
 - Setting up twig as dev and test requirement only by [@kryst3q](https://github.com/kryst3q)
 - Value for USER_ACTIVATION_LINK_URL dev env variable by [@kryst3q](https://github.com/kryst3q)
+- Move symfony/http-client dependency from require-dev to require (needed by password checker) by [@kryst3q](https://github.com/kryst3q)
 
 ## [0.42.0] - 2022-10-16
 ### Added
