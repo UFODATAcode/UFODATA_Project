@@ -8,7 +8,6 @@ use App\Contract\UserInterface;
 use App\Entity\User;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class RegisterUserCommand implements RegisterUserCommandInterface
@@ -35,7 +34,6 @@ class RegisterUserCommand implements RegisterUserCommandInterface
     public string $password;
 
     //todo: get rid of anonymous users in anonymous requests?
-    #[Ignore]
     public AnonymousUserInterface $provider;
 
     public function getEmail(): string

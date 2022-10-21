@@ -43,8 +43,14 @@ class MeasurementFixtures extends Fixture
 
     public const NOT_EXISTING_MEASUREMENT_UUID = 'ab1db128-e844-4dbd-9988-e0758f26a5af';
 
+    private static string $measurementsDirectory = '/var/www/html/public/measurements/';
+
     public function load(ObjectManager $manager): void
     {
+        if (!file_exists(self::$measurementsDirectory) || !is_dir(self::$measurementsDirectory)) {
+            mkdir(self::$measurementsDirectory);
+        }
+
         $admin1 = new User(self::ADMIN_1_EMAIL, Uuid::fromString(self::ADMIN_1_UUID), self::ADMIN_1_NAME);
         $admin1->setPassword('$2y$13$6Pn.ouTaH8mOCImFT5aAgeZk646bFCfv1h1KSg9sDZZe9hf2JgOhq'); // "test"
         $admin1->setRoles(['ROLE_ADMIN']);
@@ -63,15 +69,12 @@ class MeasurementFixtures extends Fixture
         $manager->persist($observation1);
 
         $measurement1rfs1OriginalFileName = 'measurement-rfs.csv';
-        $measurement1rfs1FileName = 'test-' . $measurement1rfs1OriginalFileName;
-        $measurement1rfs1FilePath = '/var/www/html/public/measurements/' . $measurement1rfs1FileName;
-        copy(codecept_data_dir($measurement1rfs1OriginalFileName), $measurement1rfs1FilePath);
-
+        $measurement1rfs1FileName = $this->getTestFileName($measurement1rfs1OriginalFileName);
         $measurement1Rfs1 = new RadioFrequencySpectrum(
             Uuid::fromString(self::MEASUREMENT_1_UUID),
             $observation1,
             $user1,
-            new File($measurement1rfs1FilePath),
+            new File($this->prepareFile($measurement1rfs1OriginalFileName)),
             self::MEASUREMENT_1_NAME
         );
         $originalFileMetadata = new FileMetadata();
@@ -121,5 +124,18 @@ class MeasurementFixtures extends Fixture
         $manager->persist($measurement4McWeather1);
 
         $manager->flush();
+    }
+
+    private function prepareFile(string $measurementOriginalFileName): string
+    {
+        $measurementFilePath = self::$measurementsDirectory . $this->getTestFileName($measurementOriginalFileName);
+        copy(codecept_data_dir($measurementOriginalFileName), $measurementFilePath);
+
+        return $measurementFilePath;
+    }
+
+    private function getTestFileName(string $originalFileName): string
+    {
+        return 'test-' . $originalFileName;
     }
 }

@@ -1,5 +1,6 @@
 # Expose your documentation as JSON swagger compliant
-app.swagger:
-    path: /api/doc.json
-    methods: GET
-    defaults: { _controller: nelmio_api_doc.controller.swagger }
+# todo: Fix OpenAPI doc endoint after emoving @Ignore attribute from commands elements
+#app.swagger:
+#    path: /api/doc.json
+#    methods: GET
+#    defaults: { _controller: nelmio_api_doc.controller.swagger }
