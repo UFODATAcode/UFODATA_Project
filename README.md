@@ -34,7 +34,7 @@ git clone https://github.com/UFODATAcode/UFODATA_Project
 cd UFODATA_Project
 ```
 
-4. Create local copy of `docker-compose.override.yaml` file.
+4. Create local copy of `docker-compose.override.yaml` file and set change port mappings if needed.
 
 ```shell
 cp docker-compose.override.yaml.dist docker-compose.override.yaml
@@ -45,17 +45,6 @@ cp docker-compose.override.yaml.dist docker-compose.override.yaml
 ```shell
 docker-compose up -d
 ```
-
-After starting the containers need some time to execute all required set up actions (make migrations generate JWT keys and so on).
-To check if the application is ready to handle connections you can look inside `app` logs.
-
-```shell
-docker-compose logs -f app
-```
-
-If you see something like below as the last line of the log the app should be ready.
-
-> ufodata.app    | [Tue Aug 09 19:27:04.463097 2022] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
 
 ## How can I run tests?
 

@@ -35,6 +35,9 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html/
 
+RUN composer install --no-interaction --prefer-dist --no-scripts \
+    ; composer dump-autoload --optimize --no-interaction
+
 CMD ["apache2-foreground"]
 
 ENTRYPOINT ["/entrypoint.sh"]

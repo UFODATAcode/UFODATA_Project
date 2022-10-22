@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-composer install -n
+composer auto-scripts
 
 exec "$@"

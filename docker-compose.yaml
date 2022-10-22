@@ -14,6 +14,7 @@ x-app: &app-base
     dockerfile: ./docker/app/Dockerfile
   volumes:
     - ./:/var/www/html/
+    - /var/www/html/vendor/
   environment:
     - APP_SECRET=473e07c3aad5e01e4716fc6860eda710
     - APP_DEBUG=1
