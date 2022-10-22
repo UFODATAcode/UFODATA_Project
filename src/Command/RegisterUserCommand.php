@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Contract\AnonymousUserInterface;
 use App\Contract\RegisterUserCommandInterface;
-use App\Contract\UserInterface;
 use App\Entity\User;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
@@ -56,7 +55,7 @@ class RegisterUserCommand implements RegisterUserCommandInterface
         return $this->uuid;
     }
 
-    public function getProvider(): UserInterface
+    public function getProvider(): AnonymousUserInterface
     {
         return $this->provider;
     }

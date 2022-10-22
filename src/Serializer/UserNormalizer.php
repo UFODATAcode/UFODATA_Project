@@ -2,6 +2,7 @@
 
 namespace App\Serializer;
 
+use App\Contract\AnonymousUserInterface;
 use App\Contract\UserInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -25,6 +26,7 @@ class UserNormalizer implements DenormalizerInterface
 
     public function supportsDenormalization(mixed $data, string $type, string $format = null): bool
     {
-        return \is_a($type, UserInterface::class, true);
+        return \is_a($type, UserInterface::class, true)
+            && !\is_a($type, AnonymousUserInterface::class, true);
     }
 }
