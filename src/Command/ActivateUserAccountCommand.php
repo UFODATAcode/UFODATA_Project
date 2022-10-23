@@ -27,7 +27,7 @@ class ActivateUserAccountCommand implements ActivateUserAccountCommandInterface
         return $this->uuid;
     }
 
-    public function getProvider(): UserInterface
+    public function getProvider(): AnonymousUserInterface
     {
         return $this->provider;
     }

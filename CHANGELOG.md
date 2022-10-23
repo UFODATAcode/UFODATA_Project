@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.44.3] - 2022-10-23
+### Fixed
+- Activating registered account through an endpoint provided in an email by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.44.2] - 2022-10-21
 ### Fixed
 - Failing tests by [@kryst3q](https://github.com/kryst3q)
