@@ -34,6 +34,7 @@ class ExceptionListener
 
         if (null !== $response) {
             $event->setResponse($response);
+            $event->getResponse()->headers->add(['Content-Type' => 'application/json']);
         }
     }
 }
