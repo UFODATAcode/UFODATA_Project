@@ -21,8 +21,6 @@ RUN apt-get update \
       libssl-dev\
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-enable pdo_pgsql \
-    && pecl install mongodb \
-    && docker-php-ext-enable mongodb \
     && docker-php-ext-install zip \
     && docker-php-ext-enable zip \
     && docker-php-ext-install intl \
