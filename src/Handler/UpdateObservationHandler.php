@@ -4,7 +4,9 @@ namespace App\Handler;
 
 use App\Contract\ObservationRepositoryInterface;
 use App\Contract\UpdateObservationCommandInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class UpdateObservationHandler
 {
     public function __construct(

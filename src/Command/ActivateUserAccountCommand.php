@@ -4,14 +4,14 @@ namespace App\Command;
 
 use App\Contract\ActivateUserAccountCommandInterface;
 use App\Contract\AnonymousUserInterface;
-use App\Contract\UserInterface;
+use App\Contract\SynchronousCommandInterface;
 use App\Validator\UserActivationLinkExists;
 use App\Validator\UserActivationLinkNotExpired;
 use App\Validator\UserActivationLinkNotUsed;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ActivateUserAccountCommand implements ActivateUserAccountCommandInterface
+class ActivateUserAccountCommand implements ActivateUserAccountCommandInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]

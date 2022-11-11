@@ -4,12 +4,13 @@ namespace App\Command;
 
 use App\Contract\AnonymousUserInterface;
 use App\Contract\RegisterUserCommandInterface;
+use App\Contract\SynchronousCommandInterface;
 use App\Entity\User;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegisterUserCommand implements RegisterUserCommandInterface
+class RegisterUserCommand implements RegisterUserCommandInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]

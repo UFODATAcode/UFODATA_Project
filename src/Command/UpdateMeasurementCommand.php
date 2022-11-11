@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Contract\SynchronousCommandInterface;
 use App\Contract\UpdateMeasurementCommandInterface;
 use App\Contract\UserInterface;
 use App\Entity\Measurement;
@@ -10,7 +11,7 @@ use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UpdateMeasurementCommand implements UpdateMeasurementCommandInterface
+class UpdateMeasurementCommand implements UpdateMeasurementCommandInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]

@@ -4,7 +4,9 @@ namespace App\Handler;
 
 use App\Contract\DeleteMeasurementCommandInterface;
 use App\Contract\MeasurementRepositoryInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class DeleteMeasurementHandler
 {
     public function __construct(

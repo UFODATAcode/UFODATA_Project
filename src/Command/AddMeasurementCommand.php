@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Contract\AddMeasurementCommandInterface;
 use App\Contract\FileUploadInterface;
+use App\Contract\SynchronousCommandInterface;
 use App\Contract\UserInterface;
 use App\Entity\Measurement;
 use App\Entity\Observation;
@@ -14,7 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploadInterface
+class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploadInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]

@@ -10,7 +10,9 @@ use App\Entity\MissionControlData;
 use App\Entity\MissionControlWeather;
 use App\Entity\RadioFrequencySpectrum;
 use App\Enum\MeasurementType;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class AddMeasurementHandler
 {
     public function __construct(

@@ -5,10 +5,7 @@ namespace App\Controller;
 use App\Command\AddObservationCommand;
 use App\Command\DeleteObservationCommand;
 use App\Command\UpdateObservationCommand;
-use App\Handler\AddObservationHandler;
-use App\Handler\DeleteObservationHandler;
 use App\Handler\GetObservationsHandler;
-use App\Handler\UpdateObservationHandler;
 use App\Query\GetObservationsQuery;
 use App\Response\ObservationResponse;
 use App\ValueObject\Pagination;
@@ -18,16 +15,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/observations')]
 class ObservationController extends AbstractController
 {
     public function __construct(
-        private readonly AddObservationHandler $addObservationHandler,
-        private readonly DeleteObservationHandler $deleteObservationHandler,
+        private readonly MessageBusInterface $messageBus,
         private readonly GetObservationsHandler $getObservationsHandler,
-        private readonly UpdateObservationHandler $updateObservationHandler,
     ) {}
 
     #[Route(name: 'add_observation', methods: Request::METHOD_POST)]
@@ -39,7 +35,7 @@ class ObservationController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function addObservation(AddObservationCommand $command): Response
     {
-        $this->addObservationHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -47,7 +43,7 @@ class ObservationController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function deleteObservation(DeleteObservationCommand $command): Response
     {
-        $this->deleteObservationHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -60,7 +56,7 @@ class ObservationController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function updateObservation(UpdateObservationCommand $command): Response
     {
-        $this->updateObservationHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 

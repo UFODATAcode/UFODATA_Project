@@ -5,11 +5,8 @@ namespace App\Controller;
 use App\Command\AddMeasurementCommand;
 use App\Command\DeleteMeasurementCommand;
 use App\Command\UpdateMeasurementCommand;
-use App\Handler\AddMeasurementHandler;
-use App\Handler\DeleteMeasurementHandler;
 use App\Handler\DownloadOriginalMeasurementFileHandler;
 use App\Handler\GetMeasurementsHandler;
-use App\Handler\UpdateMeasurementHandler;
 use App\Query\DownloadOriginalMeasurementFileQuery;
 use App\Query\GetMeasurementsQuery;
 use App\Response\MeasurementResponse;
@@ -20,15 +17,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/measurements')]
 class MeasurementController extends AbstractController
 {
     public function __construct(
-        private readonly AddMeasurementHandler $addMeasurementHandler,
-        private readonly UpdateMeasurementHandler $updateMeasurementHandler,
-        private readonly DeleteMeasurementHandler $deleteMeasurementHandler,
+        private readonly MessageBusInterface $messageBus,
         private readonly GetMeasurementsHandler $getMeasurementsHandler,
         private readonly DownloadOriginalMeasurementFileHandler $downloadOriginalMeasurementFileHandler,
     ) {}
@@ -42,7 +38,7 @@ class MeasurementController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function addMeasurement(AddMeasurementCommand $command): Response
     {
-        $this->addMeasurementHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -55,7 +51,7 @@ class MeasurementController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function updateMeasurement(UpdateMeasurementCommand $command): Response
     {
-        $this->updateMeasurementHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -63,7 +59,7 @@ class MeasurementController extends AbstractController
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function deleteMeasurement(DeleteMeasurementCommand $command): Response
     {
-        $this->deleteMeasurementHandler->__invoke($command);
+        $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 

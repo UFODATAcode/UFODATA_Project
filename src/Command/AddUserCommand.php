@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Contract\AddUserCommandInterface;
+use App\Contract\SynchronousCommandInterface;
 use App\Contract\UserInterface;
 use App\Entity\User;
 use App\Validator\ResourceNotExists;
@@ -10,7 +11,7 @@ use OpenApi\Attributes as OA;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddUserCommand implements AddUserCommandInterface
+class AddUserCommand implements AddUserCommandInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]

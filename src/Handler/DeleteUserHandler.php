@@ -4,7 +4,9 @@ namespace App\Handler;
 
 use App\Contract\DeleteUserCommandInterface;
 use App\Contract\UserRepositoryInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class DeleteUserHandler
 {
     public function __construct(

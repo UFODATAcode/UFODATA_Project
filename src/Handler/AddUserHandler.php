@@ -5,8 +5,10 @@ namespace App\Handler;
 use App\Contract\AddUserCommandInterface;
 use App\Contract\UserRepositoryInterface;
 use App\Entity\User;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[AsMessageHandler]
 class AddUserHandler
 {
     public function __construct(

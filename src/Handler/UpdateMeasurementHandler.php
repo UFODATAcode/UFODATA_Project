@@ -4,7 +4,9 @@ namespace App\Handler;
 
 use App\Contract\MeasurementRepositoryInterface;
 use App\Contract\UpdateMeasurementCommandInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class UpdateMeasurementHandler
 {
     public function __construct(

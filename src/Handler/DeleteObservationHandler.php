@@ -4,7 +4,9 @@ namespace App\Handler;
 
 use App\Contract\DeleteObservationCommandInterface;
 use App\Contract\ObservationRepositoryInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class DeleteObservationHandler
 {
     public function __construct(

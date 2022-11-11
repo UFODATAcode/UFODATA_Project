@@ -3,13 +3,14 @@
 namespace App\Command;
 
 use App\Contract\AddObservationCommandInterface;
+use App\Contract\SynchronousCommandInterface;
 use App\Contract\UserInterface;
 use App\Entity\Observation;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddObservationCommand implements AddObservationCommandInterface
+class AddObservationCommand implements AddObservationCommandInterface, SynchronousCommandInterface
 {
     #[Assert\NotBlank]
     #[Assert\Uuid]
