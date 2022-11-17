@@ -63,6 +63,9 @@ services:
     <<: *sql-db-base
     container_name: ufodata.sql-db-test
 
+  rabbitmq:
+    image: rabbitmq:3.7-management
+
 ###> symfony/mailer ###
   mailer:
     image: schickling/mailcatcher

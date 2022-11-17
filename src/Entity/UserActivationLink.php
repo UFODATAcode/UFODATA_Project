@@ -42,6 +42,11 @@ class UserActivationLink
         $this->expirationDate = new \DateTimeImmutable("+" . self::TIME_TO_EXPIRE_IN_MINUTES . " minutes");
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function hasExpired(): bool
     {
         return $this->expirationDate < new \DateTimeImmutable();

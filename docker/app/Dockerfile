@@ -19,12 +19,15 @@ RUN apt-get update \
       libcurl4-openssl-dev \
       pkg-config \
       libssl-dev\
+      librabbitmq-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-enable pdo_pgsql \
     && docker-php-ext-install zip \
     && docker-php-ext-enable zip \
     && docker-php-ext-install intl \
-    && docker-php-ext-enable intl
+    && docker-php-ext-enable intl \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp
 
 RUN echo "upload_max_filesize=32M" >> "$PHP_INI_DIR/php.ini"
 COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/000-default.conf

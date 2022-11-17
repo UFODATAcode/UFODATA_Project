@@ -2,16 +2,17 @@
 
 namespace App\Event;
 
-use App\Contract\UserInterface;
+use App\Contract\AsynchronousEventInterface;
+use Ramsey\Uuid\UuidInterface;
 
-class UserRegisteredEvent
+class UserRegisteredEvent implements AsynchronousEventInterface
 {
     public function __construct(
-        private readonly UserInterface $user,
+        private readonly UuidInterface $userUuid,
     ) {}
 
-    public function getUser(): UserInterface
+    public function getUserUuid(): UuidInterface
     {
-        return $this->user;
+        return $this->userUuid;
     }
 }

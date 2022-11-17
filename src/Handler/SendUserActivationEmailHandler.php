@@ -3,6 +3,7 @@
 namespace App\Handler;
 
 use App\Contract\UserActivationLinkRepositoryInterface;
+use App\Contract\UserRepositoryInterface;
 use App\Entity\UserActivationLink;
 use App\Event\UserRegisteredEvent;
 use Symfony\Component\Mailer\MailerInterface;
@@ -14,6 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SendUserActivationEmailHandler
 {
     public function __construct(
+        private readonly UserRepositoryInterface $userRepository,
         private readonly UserActivationLinkRepositoryInterface $userActivationLinkRepository,
         private readonly TranslatorInterface $translator,
         private readonly MailerInterface $mailer,
@@ -23,7 +25,12 @@ class SendUserActivationEmailHandler
 
     public function __invoke(UserRegisteredEvent $event): void
     {
-        $user = $event->getUser();
+        $user = $this->userRepository->findOneByUuid($event->getUserUuid());
+
+        if (null === $user) {
+            throw new \Exception(\sprintf('User with uuid "%s" not found', $event->getUserUuid()));
+        }
+
         $userActivationLink = new UserActivationLink($this->userActivationLinkUrl, $user);
         $this->userActivationLinkRepository->add($userActivationLink, true);
         $email = (new Email())

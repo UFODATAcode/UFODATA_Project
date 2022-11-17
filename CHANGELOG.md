@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.47.0] - 2022-11-18
+### Changed
+- Sending account activation email asynchronously by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.46.0] - 2022-11-11
 ### Changed
 - Way of handling incoming commands by using Symfony Messenger by [@kryst3q](https://github.com/kryst3q)

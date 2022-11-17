@@ -11,6 +11,11 @@ services:
     ports:
       - 5435:5432
 
+  rabbitmq:
+    ports:
+      - 5672:5672
+      - 15672:15672
+
 ###> symfony/mailer ###
   mailer:
     image: schickling/mailcatcher

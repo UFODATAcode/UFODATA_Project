@@ -29,7 +29,7 @@ class RegisterUserHandler
         $newUser
             ->setPassword($this->passwordHasher->hashPassword($newUser, $command->getPassword()));
 
-        $this->userRepository->add($newUser);
-        $this->bus->dispatch(new UserRegisteredEvent($newUser));
+        $this->userRepository->add($newUser, true);
+        $this->bus->dispatch(new UserRegisteredEvent($newUser->getUuid()));
     }
 }
