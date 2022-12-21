@@ -5,7 +5,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
-        "ext-amqp": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
@@ -19,9 +18,9 @@
         "ramsey/uuid": "^4.3",
         "ramsey/uuid-doctrine": "^1.8",
         "stof/doctrine-extensions-bundle": "^1.7",
-        "symfony/amqp-messenger": "6.1.*",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
+        "symfony/doctrine-messenger": "6.1.*",
         "symfony/dotenv": "6.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "*",
