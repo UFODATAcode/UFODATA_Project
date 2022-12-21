@@ -17,7 +17,7 @@ framework:
         routing:
             # Route your messages to the transports
             'App\Contract\SynchronousCommandInterface': sync
-            'App\Contract\AsynchronousEventInterface': async
+            'App\Contract\AsynchronousEventInterface': sync
 
 when@test:
     framework:
