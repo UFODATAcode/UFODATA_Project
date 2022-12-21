@@ -27,3 +27,5 @@
 /tests/_data/copy-*
 .env.*.local
 composer.phar
+.user.ini
+/public_html/
