@@ -8,7 +8,7 @@ class MeasurementResponse implements \JsonSerializable
 {
     public function __construct(
         public readonly string $uuid,
-        public readonly string $name,
+        public readonly ?string $name,
         public readonly MeasurementType $type,
         public readonly ObservationResponse $observation,
         public readonly ProviderResponse $provider,
