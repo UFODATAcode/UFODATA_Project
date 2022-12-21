@@ -25,3 +25,5 @@
 /public/measurements/*
 /docker-compose.override.yaml
 /tests/_data/copy-*
+.env.*.local
+composer.phar
