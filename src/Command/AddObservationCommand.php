@@ -8,6 +8,7 @@ use App\Contract\UserInterface;
 use App\Entity\Observation;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AddObservationCommand implements AddObservationCommandInterface, SynchronousCommandInterface
@@ -22,6 +23,7 @@ class AddObservationCommand implements AddObservationCommandInterface, Synchrono
     #[Assert\Type('string')]
     public string $name;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getUuid(): UuidInterface

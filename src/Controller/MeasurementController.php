@@ -31,9 +31,10 @@ class MeasurementController extends AbstractController
 
     #[Route(name: 'add_measurement', methods: Request::METHOD_POST)]
     #[OA\RequestBody(
-        content: new OA\JsonContent(
-            ref: new Model(type: AddMeasurementCommand::class),
-        )
+        content: [new OA\MediaType(
+            mediaType: 'multipart/form-data',
+            schema: new OA\Schema(ref: new Model(type: AddMeasurementCommand::class)),
+        )]
     )]
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function addMeasurement(AddMeasurementCommand $command): Response

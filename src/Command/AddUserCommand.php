@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Validator\ResourceNotExists;
 use OpenApi\Attributes as OA;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AddUserCommand implements AddUserCommandInterface, SynchronousCommandInterface
@@ -45,6 +46,7 @@ class AddUserCommand implements AddUserCommandInterface, SynchronousCommandInter
     #[Assert\Type('bool')]
     public bool $active;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getEmail(): string

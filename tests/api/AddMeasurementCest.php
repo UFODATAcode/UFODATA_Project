@@ -30,7 +30,7 @@ class AddMeasurementCest
             $measurementFileCopyPath
         );
 
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -38,10 +38,10 @@ class AddMeasurementCest
                 [
                     'uuid' => $newMeasurementUuid,
                     'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                    'measurementType' => MeasurementType::MissionControlData->value,
+                    'type' => MeasurementType::MissionControlData->value,
                 ],
                 [
-                    'measurement' => [
+                    'file' => [
                         'name' => $measurementFileCopyName,
                         'type' => 'text/csv',
                         'error' => UPLOAD_ERR_OK,
@@ -75,7 +75,7 @@ class AddMeasurementCest
         $I->dontSeeInRepository($example['className'], ['uuid' => $example['uuid']]);
 
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -83,10 +83,10 @@ class AddMeasurementCest
                 [
                     'uuid' => $example['uuid'],
                     'observationUuid' => $example['observationUuid'],
-                    'measurementType' => $example['measurementType'],
+                    'type' => $example['type'],
                 ],
                 [
-                    'measurement' => [
+                    'file' => [
                         'name' => $measurementFileCopyName,
                         'type' => 'text/csv',
                         'error' => UPLOAD_ERR_OK,
@@ -125,7 +125,7 @@ class AddMeasurementCest
         $I->seeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
 
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -133,10 +133,10 @@ class AddMeasurementCest
                 [
                     'uuid' => MeasurementFixtures::MEASUREMENT_1_UUID,
                     'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                    'measurementType' => MeasurementType::RadioFrequencySpectrum->value,
+                    'type' => MeasurementType::RadioFrequencySpectrum->value,
                 ],
                 [
-                    'measurement' => [
+                    'file' => [
                         'name' => $measurementFileCopyName,
                         'type' => 'text/csv',
                         'error' => UPLOAD_ERR_OK,
@@ -178,7 +178,7 @@ class AddMeasurementCest
         $I->seeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
 
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -186,10 +186,10 @@ class AddMeasurementCest
                 [
                     'uuid' => $newMeasurementUuid,
                     'observationUuid' => $notExistObservationUuid,
-                    'measurementType' => MeasurementType::RadioFrequencySpectrum->value,
+                    'type' => MeasurementType::RadioFrequencySpectrum->value,
                 ],
                 [
-                    'measurement' => [
+                    'file' => [
                         'name' => $measurementFileCopyName,
                         'type' => 'text/csv',
                         'error' => UPLOAD_ERR_OK,
@@ -231,7 +231,7 @@ class AddMeasurementCest
         $I->seeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
 
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -239,10 +239,10 @@ class AddMeasurementCest
                 [
                     'uuid' => $newMeasurementUuid,
                     'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                    'measurementType' => 'invalid-measurement-type',
+                    'type' => 'invalid-measurement-type',
                 ],
                 [
-                    'measurement' => [
+                    'file' => [
                         'name' => $measurementFileCopyName,
                         'type' => 'text/csv',
                         'error' => UPLOAD_ERR_OK,
@@ -255,7 +255,7 @@ class AddMeasurementCest
             $I->seeResponseContainsJson([
                 'errors' => [
                     [
-                        'property' => 'measurementType',
+                        'property' => 'type',
                         'message' => 'The value you selected is not a valid choice.',
                         'code' => '8e179f1b-97aa-4560-a02f-2a8b42e49df7',
                     ]
@@ -284,7 +284,7 @@ class AddMeasurementCest
         $I->seeInRepository(RadioFrequencySpectrum::class, ['uuid' => MeasurementFixtures::MEASUREMENT_1_UUID]);
 
         $I->setBearerTokenForUser(MeasurementFixtures::USER_1_EMAIL);
-        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Content-Type', 'multipart/form-data');
 
         try {
             $I->sendPost(
@@ -292,14 +292,14 @@ class AddMeasurementCest
                 [
                     'uuid' => $newMeasurementUuid,
                     'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                    'measurementType' => MeasurementType::RadioFrequencySpectrum->value,
+                    'type' => MeasurementType::RadioFrequencySpectrum->value,
                 ]
             );
             $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
             $I->seeResponseContainsJson([
                 'errors' => [
                     [
-                        'property' => 'measurement',
+                        'property' => 'file',
                         'message' => 'This value should not be null.',
                         'code' => 'ad32d13f-c3d4-423b-909a-857b961eb720',
                     ]
@@ -319,28 +319,28 @@ class AddMeasurementCest
                 'fileName' => 'measurement-rfs.csv',
                 'uuid' => '6d921f3d-340d-487b-abcb-f481f6f965c4',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                'measurementType' => MeasurementType::RadioFrequencySpectrum->value,
+                'type' => MeasurementType::RadioFrequencySpectrum->value,
             ],
             [
                 'className' => MissionControlData::class,
                 'fileName' => 'measurement-mc-data.csv',
                 'uuid' => '3231ba2d-b8cf-438c-83ef-abd0b23b428e',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                'measurementType' => MeasurementType::MissionControlData->value,
+                'type' => MeasurementType::MissionControlData->value,
             ],
             [
                 'className' => MissionControlAdsBFlightTracking::class,
                 'fileName' => 'measurement-mc-flight-tracking.csv',
                 'uuid' => '2c63aa44-e95b-4719-ae36-d37718cd6e49',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                'measurementType' => MeasurementType::MissionControlAdsBFlightTracking->value,
+                'type' => MeasurementType::MissionControlAdsBFlightTracking->value,
             ],
             [
                 'className' => MissionControlWeather::class,
                 'fileName' => 'measurement-mc-weather.csv',
                 'uuid' => '76cec50d-bd05-468a-900c-532bcac3701c',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
-                'measurementType' => MeasurementType::MissionControlWeather->value,
+                'type' => MeasurementType::MissionControlWeather->value,
             ],
         ];
     }

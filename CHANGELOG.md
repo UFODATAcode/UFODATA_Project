@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2022-12-22
+### Changed
+- Content type of adding measurement to multipart/form-data by [@kryst3q](https://github.com/kryst3q)
+- Names of properties in adding measurement request by [@kryst3q](https://github.com/kryst3q)
+
+### Fixed
+- Endpoint providing JSON OpenAPI documentation by [@kryst3q](https://github.com/kryst3q)
+
 ## [0.47.1] - 2022-12-21
 ### Fixed
 - Retrieving measurements list when some measurements don't have name by [@kryst3q](https://github.com/kryst3q)

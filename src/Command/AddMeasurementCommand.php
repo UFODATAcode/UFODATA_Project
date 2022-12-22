@@ -13,6 +13,7 @@ use App\Validator\ResourceExists;
 use App\Validator\ResourceNotExists;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploadInterface, SynchronousCommandInterface
@@ -29,20 +30,21 @@ class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploa
 
     #[Assert\NotBlank]
     #[Assert\Choice(callback: [MeasurementType::class, 'values'])]
-    public MeasurementType $measurementType;
+    public MeasurementType $type;
 
     #[Assert\NotNull]
     #[Assert\File(
         mimeTypes: ['text/plain'], //TODO: move measurement allowed mime types to dedicated class
     )]
     //TODO: add constraint to validate if this measurement type can be parsed/is valid measurement type
-    public UploadedFile $measurement;
+    public UploadedFile $file;
 
     #[Assert\NotBlank(allowNull: true)]
     #[Assert\Type('string')]
     #[Assert\Length(max: Measurement::NAME_MAX_LENGTH)]
     public ?string $name = null;
 
+    #[Ignore]
     public UserInterface $provider;
 
     /**
@@ -51,7 +53,7 @@ class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploa
     public static function getFilesNames(): array
     {
         return [
-            'measurement',
+            'file',
         ];
     }
 
@@ -60,14 +62,14 @@ class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploa
         return $this->observationUuid;
     }
 
-    public function getMeasurementType(): MeasurementType
+    public function getType(): MeasurementType
     {
-        return $this->measurementType;
+        return $this->type;
     }
 
-    public function getMeasurement(): UploadedFile
+    public function getFile(): UploadedFile
     {
-        return $this->measurement;
+        return $this->file;
     }
 
     public function getName(): ?string

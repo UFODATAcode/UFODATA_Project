@@ -22,7 +22,7 @@ class AddMeasurementHandler
 
     public function __invoke(AddMeasurementCommandInterface $command): void
     {
-        $measurementClassName = match ($command->getMeasurementType()) {
+        $measurementClassName = match ($command->getType()) {
             MeasurementType::RadioFrequencySpectrum => RadioFrequencySpectrum::class,
             MeasurementType::MissionControlData => MissionControlData::class,
             MeasurementType::MissionControlAdsBFlightTracking => MissionControlAdsBFlightTracking::class,
@@ -34,7 +34,7 @@ class AddMeasurementHandler
                 $command->getUuid(),
                 $this->observationRepository->findOneByUuid($command->getObservationUuid()),
                 $command->getProvider(),
-                $command->getMeasurement(),
+                $command->getFile(),
             ),
             true
         );

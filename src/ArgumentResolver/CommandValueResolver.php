@@ -2,12 +2,16 @@
 
 namespace App\ArgumentResolver;
 
+use App\Contract\AnonymousUserInterface;
 use App\Contract\CommandInterface;
 use App\Contract\FileUploadInterface;
+use App\Contract\UserInterface;
+use App\Entity\AnonymousUser;
 use App\Exception\ValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Mapping\ClassMetadataInterface;
@@ -18,6 +22,7 @@ class CommandValueResolver implements ArgumentValueResolverInterface
     public function __construct(
         private readonly ValidatorInterface $validator,
         private readonly DenormalizerInterface $denormalizer,
+        private readonly Security $security,
     ) {}
 
     /**
@@ -73,13 +78,12 @@ class CommandValueResolver implements ArgumentValueResolverInterface
             throw new ValidationException($violations);
         }
 
-        /*
-           Every command must have provider specified.
-           The proper value will be fetched by dedicated normalizer.
-           To execute the normalizer first we must mark that such field needs to be denormalized.
-        */
-        $decodedContent['provider'] = null;
+        $command = $this->denormalizer->denormalize($decodedContent, $commandClass);
+        $command->provider = match ((new \ReflectionProperty($commandClass, 'provider'))->getType()->getName()) {
+            UserInterface::class => $this->security->getUser(),
+            AnonymousUserInterface::class => new AnonymousUser(),
+        };
 
-        yield $this->denormalizer->denormalize($decodedContent, $commandClass);
+        yield $command;
     }
 }

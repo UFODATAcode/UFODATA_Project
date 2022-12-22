@@ -9,6 +9,7 @@ use App\Entity\Observation;
 use App\Validator\ActionOnResourceIsGranted;
 use App\Validator\ResourceExists;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class DeleteObservationCommand implements DeleteObservationCommandInterface, SynchronousCommandInterface
@@ -19,6 +20,7 @@ class DeleteObservationCommand implements DeleteObservationCommandInterface, Syn
     #[ActionOnResourceIsGranted(entityClassName: Observation::class)]
     public UuidInterface $uuid;
 
+    #[Ignore]
     public UserInterface $provider;
 
     public function getUuid(): UuidInterface
