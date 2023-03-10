@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Command\ActivateUserAccountCommand;
 use App\Command\AddUserCommand;
+use App\Command\ChangeUserPasswordCommand;
 use App\Command\DeleteUserCommand;
 use App\Command\RegisterUserCommand;
 use App\Handler\GetUserHandler;
@@ -108,6 +109,19 @@ class UserController extends AbstractController
     )]
     #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
     public function activateUserAccount(ActivateUserAccountCommand $command): Response
+    {
+        $this->messageBus->dispatch($command);
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route(path: '/{uuid}/change-password', name: 'change_user_password', methods: [Request::METHOD_POST])]
+    #[OA\RequestBody(
+        content: new OA\JsonContent(
+            ref: new Model(type: ChangeUserPasswordCommand::class),
+        )
+    )]
+    #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Successfully obtained the command.')]
+    public function changeUserPassword(ChangeUserPasswordCommand $command): Response
     {
         $this->messageBus->dispatch($command);
         return new Response(null, Response::HTTP_NO_CONTENT);

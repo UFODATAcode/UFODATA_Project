@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-03-10
+### Added
+- Possibility of changing user password by [@kryst3q](https://github.com/kryst3q)
+
 ## [1.0.1] - 2022-12-22
 ### Changed
 - Content type of adding measurement to multipart/form-data by [@kryst3q](https://github.com/kryst3q)
