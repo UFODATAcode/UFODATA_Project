@@ -8,6 +8,7 @@ enum MeasurementType: string
     case MissionControlData = 'mcdat';
     case MissionControlAdsBFlightTracking = 'mcflt';
     case MissionControlWeather = 'mcwth';
+    case Video = 'video';
 
     /**
      * @return string[]

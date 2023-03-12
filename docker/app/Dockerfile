@@ -29,7 +29,8 @@ RUN apt-get update \
     && pecl install amqp \
     && docker-php-ext-enable amqp
 
-RUN echo "upload_max_filesize=32M" >> "$PHP_INI_DIR/php.ini"
+RUN echo "upload_max_filesize=512M" >> "$PHP_INI_DIR/php.ini"
+RUN echo "post_max_size=512M" >> "$PHP_INI_DIR/php.ini"
 COPY ./docker/app/apache.conf /etc/apache2/sites-enabled/000-default.conf
 COPY ./docker/app/entrypoint.sh /entrypoint.sh
 COPY . /var/www/html/

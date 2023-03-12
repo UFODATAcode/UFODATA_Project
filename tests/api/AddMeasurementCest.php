@@ -8,6 +8,7 @@ use App\Entity\MissionControlAdsBFlightTracking;
 use App\Entity\MissionControlData;
 use App\Entity\MissionControlWeather;
 use App\Entity\RadioFrequencySpectrum;
+use App\Entity\Video;
 use App\Enum\MeasurementType;
 use App\Tests\ApiTester;
 use Codeception\Example;
@@ -88,7 +89,7 @@ class AddMeasurementCest
                 [
                     'file' => [
                         'name' => $measurementFileCopyName,
-                        'type' => 'text/csv',
+                        'type' => $example['mimeType'],
                         'error' => UPLOAD_ERR_OK,
                         'size' => filesize($measurementFileCopyPath),
                         'tmp_name' => $measurementFileCopyPath,
@@ -320,6 +321,7 @@ class AddMeasurementCest
                 'uuid' => '6d921f3d-340d-487b-abcb-f481f6f965c4',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
                 'type' => MeasurementType::RadioFrequencySpectrum->value,
+                'mimeType' => 'text/csv',
             ],
             [
                 'className' => MissionControlData::class,
@@ -327,6 +329,7 @@ class AddMeasurementCest
                 'uuid' => '3231ba2d-b8cf-438c-83ef-abd0b23b428e',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
                 'type' => MeasurementType::MissionControlData->value,
+                'mimeType' => 'text/csv',
             ],
             [
                 'className' => MissionControlAdsBFlightTracking::class,
@@ -334,6 +337,7 @@ class AddMeasurementCest
                 'uuid' => '2c63aa44-e95b-4719-ae36-d37718cd6e49',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
                 'type' => MeasurementType::MissionControlAdsBFlightTracking->value,
+                'mimeType' => 'text/csv',
             ],
             [
                 'className' => MissionControlWeather::class,
@@ -341,6 +345,15 @@ class AddMeasurementCest
                 'uuid' => '76cec50d-bd05-468a-900c-532bcac3701c',
                 'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
                 'type' => MeasurementType::MissionControlWeather->value,
+                'mimeType' => 'text/csv',
+            ],
+            [
+                'className' => Video::class,
+                'fileName' => 'video.avi',
+                'uuid' => '9479a631-ee34-4674-84b6-191e54b77544',
+                'observationUuid' => MeasurementFixtures::OBSERVATION_1_UUID,
+                'type' => MeasurementType::Video->value,
+                'mimeType' => 'video/x-msvideo',
             ],
         ];
     }

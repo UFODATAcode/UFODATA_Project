@@ -20,6 +20,7 @@ use Vich\UploaderBundle\Entity\File as EmbeddedFile;
     'mcdata' => MissionControlData::class,
     'mcadsb' => MissionControlAdsBFlightTracking::class,
     'mcwthr' => MissionControlWeather::class,
+    'video' => Video::class,
 ])]
 #[Vich\Uploadable]
 abstract class Measurement extends AbstractEntity implements ResourceInterface

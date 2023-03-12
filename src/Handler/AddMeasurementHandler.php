@@ -9,6 +9,7 @@ use App\Entity\MissionControlAdsBFlightTracking;
 use App\Entity\MissionControlData;
 use App\Entity\MissionControlWeather;
 use App\Entity\RadioFrequencySpectrum;
+use App\Entity\Video;
 use App\Enum\MeasurementType;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -27,6 +28,7 @@ class AddMeasurementHandler
             MeasurementType::MissionControlData => MissionControlData::class,
             MeasurementType::MissionControlAdsBFlightTracking => MissionControlAdsBFlightTracking::class,
             MeasurementType::MissionControlWeather => MissionControlWeather::class,
+            MeasurementType::Video => Video::class,
         };
 
         $this->measurementRepository->add(

@@ -34,7 +34,11 @@ class AddMeasurementCommand implements AddMeasurementCommandInterface, FileUploa
 
     #[Assert\NotNull]
     #[Assert\File(
-        mimeTypes: ['text/plain'], //TODO: move measurement allowed mime types to dedicated class
+        mimeTypes: [
+            'text/plain',
+            'video/avi',
+            'video/x-msvideo',
+        ], //TODO: move measurement allowed mime types to dedicated class
     )]
     //TODO: add constraint to validate if this measurement type can be parsed/is valid measurement type
     public UploadedFile $file;
