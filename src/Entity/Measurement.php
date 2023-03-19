@@ -56,6 +56,9 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     #[ORM\Column(type: 'datetimetz')]
     private \DateTimeInterface $updatedAt;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'], fetch: 'LAZY')]
+    private ?MeasurementMetadata $metadata = null;
+
     public function __construct(
         UuidInterface $uuid,
         Observation $observation,
@@ -127,6 +130,18 @@ abstract class Measurement extends AbstractEntity implements ResourceInterface
     public function getProvider(): UserInterface
     {
         return $this->provider;
+    }
+
+    public function getMetadata(): ?MeasurementMetadata
+    {
+        return $this->metadata;
+    }
+
+    public function setMetadata(MeasurementMetadata $metadata): self
+    {
+        $this->metadata = $metadata;
+
+        return $this;
     }
 
     public function getData(): array

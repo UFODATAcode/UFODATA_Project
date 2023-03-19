@@ -11,6 +11,7 @@ use App\Entity\RadioFrequencySpectrum;
 use App\Entity\Video;
 use App\Enum\MeasurementType;
 use App\Tests\ApiTester;
+use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\File\File;
@@ -58,9 +59,7 @@ class AddMeasurementCest
         }
     }
 
-    /**
-     * @dataProvider iCanAddMeasurementWhenIAmAuthorizedDataProvider
-     */
+    #[DataProvider('iCanAddMeasurementWhenIAmAuthorizedDataProvider')]
     public function iCanAddMeasurementWhenIAmAuthorized(ApiTester $I, Example $example)
     {
         $measurementFileName = $example['fileName'];

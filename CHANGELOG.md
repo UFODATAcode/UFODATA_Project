@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-03-19
+### Added
+- Extracting metadata from video measurements by [@kryst3q](https://github.com/kryst3q)
+
 ## [1.2.0] - 2023-03-12
 ### Added
 - Uploading video measurements in AVI format by [@kryst3q](https://github.com/kryst3q)

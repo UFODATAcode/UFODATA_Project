@@ -12,9 +12,6 @@ x-app: &app-base
   build:
     context: .
     dockerfile: ./docker/app/Dockerfile
-  volumes:
-    - ./:/var/www/html/
-    - /var/www/html/vendor/
   environment:
     - APP_SECRET=473e07c3aad5e01e4716fc6860eda710
     - APP_DEBUG=1
@@ -28,6 +25,9 @@ services:
   app:
     <<: *app-base
     container_name: ufodata.app
+    volumes:
+      - ./:/var/www/html
+      - /var/www/html/vendor
     environment:
       - APP_ENV=dev
       - POSTGRES_HOST=sql-db

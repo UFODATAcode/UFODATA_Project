@@ -11,7 +11,9 @@ use App\Entity\MissionControlWeather;
 use App\Entity\RadioFrequencySpectrum;
 use App\Entity\Video;
 use App\Enum\MeasurementType;
+use App\Event\VideoAddedEvent;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsMessageHandler]
 class AddMeasurementHandler
@@ -19,6 +21,7 @@ class AddMeasurementHandler
     public function __construct(
         private readonly ObservationRepositoryInterface $observationRepository,
         private readonly MeasurementRepositoryInterface $measurementRepository,
+        private readonly MessageBusInterface $messageBus,
     ) {}
 
     public function __invoke(AddMeasurementCommandInterface $command): void
@@ -40,5 +43,9 @@ class AddMeasurementHandler
             ),
             true
         );
+
+        if ($measurementClassName === Video::class) {
+            $this->messageBus->dispatch(new VideoAddedEvent($command->getUuid()));
+        }
     }
 }
