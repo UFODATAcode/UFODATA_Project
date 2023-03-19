@@ -2,8 +2,6 @@
 
 namespace App\Console;
 
-use App\Enum\Role;
-use App\Handler\AddUserHandler;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -45,7 +43,7 @@ class AddUserCommand extends Command
         $command->name = $input->getArgument('name');
         $command->email = $input->getArgument('email');
         $command->password = $input->getArgument('password');
-        $command->roles = $input->getOption('admin') ? [Role::Admin->value] : [];
+        $command->roles = $input->getOption('admin') ? ['ROLE_ADMIN'] : [];
         $command->active = true;
 
         $this->messageBus->dispatch($command);
