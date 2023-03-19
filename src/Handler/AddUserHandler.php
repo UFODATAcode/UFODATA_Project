@@ -28,6 +28,6 @@ class AddUserHandler
             ->setRoles($command->getRoles())
             ->setPassword($this->passwordHasher->hashPassword($newUser, $command->getPassword()));
 
-        $this->userRepository->add($newUser);
+        $this->userRepository->add($newUser, true);
     }
 }
