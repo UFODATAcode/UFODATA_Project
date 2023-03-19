@@ -5,9 +5,9 @@ namespace App\Tests\Unit;
 
 use App\Dto\VideoMetadataDto;
 use App\Service\VideoMetadataExtractor;
+use App\Service\VideoMetadataExtractorEngine;
 use App\Tests\UnitTester;
 use Codeception\Test\Unit;
-use getID3;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
@@ -16,12 +16,12 @@ class VideoMetadataExtractorTest extends Unit
     use ProphecyTrait;
 
     protected UnitTester $tester;
-    private getID3|ObjectProphecy $engine;
+    private VideoMetadataExtractorEngine|ObjectProphecy $engine;
     private VideoMetadataExtractor $sut;
 
     protected function _before(): void
     {
-        $this->engine = $this->prophesize(getID3::class);
+        $this->engine = $this->prophesize(VideoMetadataExtractorEngine::class);
         $this->sut = new VideoMetadataExtractor($this->engine->reveal());
     }
 
